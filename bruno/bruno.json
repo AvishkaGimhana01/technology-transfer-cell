@@ -1,9 +1,0 @@
-{
-  "name": "Technology Transfer Cell API",
-  "version": "1",
-  "type": "collection",
-  "ignore": [
-    "node_modules",
-    ".git"
-  ]
-}

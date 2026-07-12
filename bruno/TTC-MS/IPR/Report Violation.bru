@@ -1,0 +1,24 @@
+meta {
+  name: Report Violation
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/ipr-violations
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "title": "Unauthorized use of patented process",
+    "description": "Company Y appears to be using our patented coating process without a license.",
+    "related_patent_or_project": "LK/2024/001",
+    "severity": "high"
+  }
+}

@@ -1,0 +1,25 @@
+meta {
+  name: Create Post
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/noticeboard
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "title": "Innovation Club Applications Open",
+    "content": "Submit your idea before 31 Aug 2026.",
+    "category": "announcement",
+    "is_published": true,
+    "publish_date": "2026-07-12"
+  }
+}

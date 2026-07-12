@@ -1,0 +1,26 @@
+meta {
+  name: Create Project
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/projects
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "title": "AI Quality Inspection for XYZ Textiles",
+    "description": "Computer vision defect detection pilot",
+    "industry_partner_name": "XYZ Textiles Pvt Ltd",
+    "status": "proposed",
+    "start_date": "2026-08-01",
+    "budget": 500000
+  }
+}

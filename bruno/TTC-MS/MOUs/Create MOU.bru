@@ -1,0 +1,25 @@
+meta {
+  name: Create MOU
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/mous
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "title": "MOU with ABC Innovations",
+    "partner_organization": "ABC Innovations",
+    "signatory_internal": "Dean, Faculty of Engineering",
+    "signatory_external": "CEO, ABC Innovations",
+    "status": "pending_signature"
+  }
+}

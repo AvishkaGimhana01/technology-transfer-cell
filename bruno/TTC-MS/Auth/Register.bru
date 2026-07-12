@@ -1,0 +1,22 @@
+meta {
+  name: Register
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/auth/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "full_name": "Test Admin",
+    "email": "admin@ttc.lk",
+    "role": "super_admin",
+    "department": "EIE",
+    "phone": "0771234567",
+    "password": "admin123"
+  }
+}

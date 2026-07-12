@@ -1,0 +1,21 @@
+meta {
+  name: Update Project Status
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{baseUrl}}/projects/1/status
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "status": "ongoing"
+  }
+}

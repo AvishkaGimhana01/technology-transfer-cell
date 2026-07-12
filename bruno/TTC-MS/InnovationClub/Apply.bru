@@ -1,0 +1,21 @@
+meta {
+  name: Apply
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/innovation-club/apply
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "applicant_name": "R.L Abeysundara",
+    "applicant_email": "abeysundara@ruh.ac.lk",
+    "applicant_type": "student",
+    "idea_title": "Smart Irrigation Controller",
+    "idea_description": "IoT based irrigation scheduling for smallholder farms"
+  }
+}

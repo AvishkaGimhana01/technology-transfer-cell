@@ -1,0 +1,27 @@
+meta {
+  name: Create Agreement
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{baseUrl}}/agreements
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{token}}
+}
+
+body:json {
+  {
+    "title": "NDA - XYZ Textiles",
+    "agreement_type": "nda",
+    "party_name": "XYZ Textiles Pvt Ltd",
+    "start_date": "2026-07-15",
+    "end_date": "2027-07-15",
+    "reminder_date": "2027-06-15",
+    "status": "active"
+  }
+}
