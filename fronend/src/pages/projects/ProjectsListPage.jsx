@@ -13,7 +13,7 @@ const columns = [
   { key: 'title', label: 'Project' },
   { key: 'industry_partner_name', label: 'Partner' },
   { key: 'status', label: 'Status', render: (r) => <StatusDot status={r.status} /> },
-  { key: 'budget', label: 'Budget', render: (r) => r.budget ? `$${r.budget.toLocaleString()}` : '—' },
+  { key: 'budget', label: 'Budget', render: (r) => r.budget ? `Rs. ${r.budget.toLocaleString()}` : '—' },
   { key: 'start_date', label: 'Start', render: (r) => r.start_date || '—' },
 ]
 

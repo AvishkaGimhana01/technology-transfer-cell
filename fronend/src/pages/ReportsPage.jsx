@@ -50,7 +50,7 @@ export default function ReportsPage() {
               { label: 'Q4', val: 128000 }
             ].map((bar, i) => (
               <div key={i} className="flex-1 flex flex-col items-center gap-2">
-                <span className="text-[10px] font-bold text-indigo tabular">${(bar.val / 1000).toFixed(0)}k</span>
+                <span className="text-[10px] font-bold text-indigo tabular">Rs. {(bar.val / 1000).toFixed(0)}k</span>
                 <div
                   className="w-full rounded-t-lg bg-indigo transition-all duration-1000"
                   style={{ height: `${(bar.val / 130000) * 110}px` }}
@@ -100,7 +100,7 @@ export default function ReportsPage() {
           </div>
           <div className="border-t border-line/50 pt-4 flex justify-between items-center mt-6">
             <span className="text-xs font-bold text-indigo tabular">
-              YTD: ${licenses.reduce((acc, curr) => acc + (curr.revenue_ytd || 0), 0).toLocaleString()}
+              YTD: Rs. {licenses.reduce((acc, curr) => acc + (curr.revenue_ytd || 0), 0).toLocaleString()}
             </span>
             <Button variant="primary" className="py-1 px-3 text-xs" onClick={() => triggerDownload('Financial Report')}>
               Export XLS
