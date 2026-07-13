@@ -18,6 +18,16 @@ export default function DashboardPage() {
   const [deadlines, setDeadlines] = useState([])
   const [licenses, setLicenses] = useState([])
   const [loading, setLoading] = useState(true)
+  const [animateBars, setAnimateBars] = useState(false)
+  const [time, setTime] = useState(new Date())
+
+  // Dynamic system clock ticking every second
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTime(new Date())
+    }, 1000)
+    return () => clearInterval(timer)
+  }, [])
 
   useEffect(() => {
     Promise.allSettled([
@@ -36,7 +46,6 @@ export default function DashboardPage() {
       setDeadlines(dls)
       setLicenses(lics)
 
-      // Dynamically calculate metrics based on db entries, falling back to Figma design defaults
       const filedCount = pats.filter(p => p.status === 'filed').length || 43
       const grantedCount = pats.filter(p => p.status === 'granted').length || 12
       const pendingCount = discs.length || 19
@@ -50,20 +59,79 @@ export default function DashboardPage() {
         renewals: renewalsCount,
         revenue: revenueSum
       })
+      
+      // Trigger pipeline bar growth animation
+      setTimeout(() => setAnimateBars(true), 150)
     }).finally(() => setLoading(false))
   }, [])
 
+  const getGreeting = () => {
+    const hr = time.getHours()
+    if (hr < 12) return 'Good morning'
+    if (hr < 18) return 'Good afternoon'
+    return 'Good evening'
+  }
+
+  const hourRotation = (time.getHours() % 12) * 30 + time.getMinutes() * 0.5
+  const minuteRotation = time.getMinutes() * 6
+  const secondRotation = time.getSeconds() * 6
+
   return (
     <>
-      <PageHeader
-        title="Dashboard"
-        description="Monitor filing throughput, deadline risk, licensing progress, recent activity, and tasks from a single institutional view."
-        icon={
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z" />
-          </svg>
-        }
-      />
+      {/* Premium macOS Greeting Banner with Real-time Operating Watch */}
+      <div className="bg-gradient-to-r from-[#FFFFFF] to-[#F5F5F7] border border-[#E5E5E7] rounded-2xl p-6 mb-8 shadow-xs flex items-center justify-between gap-4 animate-scale-in">
+        <div>
+          <span className="text-[10px] font-bold text-[#0071E3] uppercase tracking-widest">Operational Console</span>
+          <h2 className="text-xl font-bold text-[#1D1D1F] mt-1">
+            {getGreeting()}, {user?.full_name || 'IP Manager'}
+          </h2>
+          <p className="text-xs text-[#86868B] mt-0.5">Track upcoming due dates, disclosures, patent filings, and licensing royalty metrics.</p>
+        </div>
+        
+        {/* Real-time Ticking Analog & Digital Watch Component */}
+        <div className="flex items-center gap-3 bg-white border border-[#E5E5E7] p-2 rounded-xl shadow-2xs shrink-0 select-none">
+          <div className="flex flex-col items-end leading-none">
+            <span className="text-[8px] font-bold text-[#86868B] uppercase tracking-wider">Local Time</span>
+            <span className="text-xs font-bold text-[#1D1D1F] mt-1 tabular-nums">
+              {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
+            </span>
+          </div>
+          <div className="w-8 h-8 rounded-full bg-[#F5F5F7] flex items-center justify-center shrink-0 border border-[#D2D2D7]/50 relative">
+            <svg className="w-6 h-6 text-[#1D1D1F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2}>
+              <circle cx="12" cy="12" r="9" className="stroke-[#E5E5E7]" strokeWidth={1.5} />
+              {/* Hour hand */}
+              <line 
+                x1="12" y1="12" x2="12" y2="7.5" 
+                style={{ 
+                  transform: `rotate(${hourRotation}deg)`, 
+                  transformOrigin: '12px 12px' 
+                }} 
+                className="stroke-[#1D1D1F]" 
+              />
+              {/* Minute hand */}
+              <line 
+                x1="12" y1="12" x2="15.5" y2="12" 
+                style={{ 
+                  transform: `rotate(${minuteRotation}deg)`, 
+                  transformOrigin: '12px 12px' 
+                }} 
+                className="stroke-[#1D1D1F]" 
+              />
+              {/* Second hand */}
+              <line 
+                x1="12" y1="12" x2="12" y2="6.5" 
+                style={{ 
+                  transform: `rotate(${secondRotation}deg)`, 
+                  transformOrigin: '12px 12px' 
+                }} 
+                className="stroke-[#FF3B30]" 
+                strokeWidth="1"
+              />
+              <circle cx="12" cy="12" r="1" className="fill-[#FF3B30] stroke-none" />
+            </svg>
+          </div>
+        </div>
+      </div>
 
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-5 gap-5 mb-8">
@@ -146,18 +214,18 @@ export default function DashboardPage() {
               <h3 className="text-xs font-bold text-ink uppercase tracking-wider">Prosecution Pipeline</h3>
               <p className="text-[11px] text-ink/45 mt-0.5">Volume by lifecycle stage across active disclosures & patents.</p>
             </div>
-            <svg className="w-5 h-5 text-indigo/70" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-5 h-5 text-[#0071E3]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M7 12l3-3 3 3 4-4M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
             </svg>
           </div>
           
           <div className="space-y-4 pt-2">
             {[
-              { label: 'Disclosure', value: disclosures.length || 24, max: 30, color: 'bg-indigo' },
-              { label: 'Review', value: disclosures.filter(d => d.status === 'under_review').length || 17, max: 30, color: 'bg-teal' },
-              { label: 'Drafting', value: patents.filter(p => p.status === 'drafting').length || 13, max: 30, color: 'bg-amber' },
-              { label: 'Filed', value: patents.filter(p => p.status === 'filed').length || 19, max: 30, color: 'bg-indigo-dark' },
-              { label: 'Granted', value: patents.filter(p => p.status === 'granted').length || 8, max: 30, color: 'bg-teal' },
+              { label: 'Disclosure', value: disclosures.length || 24, max: 30, color: 'bg-[#0071E3]' },
+              { label: 'Review', value: disclosures.filter(d => d.status === 'under_review').length || 17, max: 30, color: 'bg-[#34C759]' },
+              { label: 'Drafting', value: patents.filter(p => p.status === 'drafting').length || 13, max: 30, color: 'bg-[#FF9500]' },
+              { label: 'Filed', value: patents.filter(p => p.status === 'filed').length || 19, max: 30, color: 'bg-[#005BB5]' },
+              { label: 'Granted', value: patents.filter(p => p.status === 'granted').length || 8, max: 30, color: 'bg-[#34C759]' },
             ].map((bar, i) => (
               <div key={i} className="space-y-1">
                 <div className="flex items-center justify-between text-xs font-bold text-ink">
@@ -166,8 +234,8 @@ export default function DashboardPage() {
                 </div>
                 <div className="h-2 w-full bg-paper rounded-full overflow-hidden">
                   <div
-                    className={`h-full rounded-full transition-all duration-1000 ${bar.color}`}
-                    style={{ width: `${(bar.value / bar.max) * 100}%` }}
+                    className={`h-full rounded-full transition-all duration-700 ease-out ${bar.color}`}
+                    style={{ width: animateBars ? `${(bar.value / bar.max) * 100}%` : '0%' }}
                   />
                 </div>
               </div>
@@ -179,22 +247,22 @@ export default function DashboardPage() {
         <div className="bg-surface border border-line rounded-2xl p-6 shadow-xs flex flex-col justify-between">
           <div>
             <h3 className="text-xs font-bold text-ink uppercase tracking-wider">Deadline Risk Heatmap</h3>
-            <p className="text-[11px] text-ink/45 mt-0.5">Escalation density by urgency and compliance impact.</p>
+            <p className="text-[11px] text-[#86868B] mt-0.5">Escalation density by urgency and compliance impact.</p>
           </div>
           
           <div className="grid grid-cols-4 gap-3 my-4">
-            <div className="heatmap-box heatmap-low">Low</div>
-            <div className="heatmap-box heatmap-low">Low</div>
-            <div className="heatmap-box heatmap-moderate">Moderate</div>
-            <div className="heatmap-box heatmap-high">High</div>
-            <div className="heatmap-box heatmap-low">Low</div>
-            <div className="heatmap-box heatmap-moderate">Moderate</div>
-            <div className="heatmap-box heatmap-high">High</div>
-            <div className="heatmap-box heatmap-high">High</div>
-            <div className="heatmap-box heatmap-low">Low</div>
-            <div className="heatmap-box heatmap-moderate">Moderate</div>
-            <div className="heatmap-box heatmap-moderate">Moderate</div>
-            <div className="heatmap-box heatmap-critical">Critical</div>
+            <div className="heatmap-box heatmap-low shadow-3xs">Low</div>
+            <div className="heatmap-box heatmap-low shadow-3xs">Low</div>
+            <div className="heatmap-box heatmap-moderate shadow-3xs">Moderate</div>
+            <div className="heatmap-box heatmap-high shadow-3xs">High</div>
+            <div className="heatmap-box heatmap-low shadow-3xs">Low</div>
+            <div className="heatmap-box heatmap-moderate shadow-3xs">Moderate</div>
+            <div className="heatmap-box heatmap-high shadow-3xs">High</div>
+            <div className="heatmap-box heatmap-high shadow-3xs">High</div>
+            <div className="heatmap-box heatmap-low shadow-3xs">Low</div>
+            <div className="heatmap-box heatmap-moderate shadow-3xs">Moderate</div>
+            <div className="heatmap-box heatmap-moderate shadow-3xs">Moderate</div>
+            <div className="heatmap-box heatmap-critical shadow-3xs">Critical</div>
           </div>
 
           <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-ink/35 border-t border-line pt-3">
@@ -215,10 +283,10 @@ export default function DashboardPage() {
           
           <div className="space-y-4">
             {[
-              { text: "Disclosure DISC-1024 routed for internal review", tag: "Workflow", time: "09:20", color: "text-indigo bg-indigo-light" },
-              { text: "Document DOC-888 uploaded version 3", tag: "Document", time: "10:15", color: "text-teal bg-teal-light" },
-              { text: "Deadline escalation triggered for PAT-8841", tag: "Deadline", time: "11:40", color: "text-rust bg-rust-light" },
-              { text: "License LIC-233 milestone reminder sent", tag: "Commercialization", time: "12:25", color: "text-amber bg-amber-light" }
+              { text: "Disclosure DISC-1024 routed for internal review", tag: "Workflow", time: "09:20", color: "text-[#0071E3] bg-[#0071E3]/8" },
+              { text: "Document DOC-888 uploaded version 3", tag: "Document", time: "10:15", color: "text-[#34C759] bg-[#34C759]/8" },
+              { text: "Deadline escalation triggered for PAT-8841", tag: "Deadline", time: "11:40", color: "text-[#FF3B30] bg-[#FF3B30]/8" },
+              { text: "License LIC-233 milestone reminder sent", tag: "Commercialization", time: "12:25", color: "text-[#FF9500] bg-[#FF9500]/8" }
             ].map((act, i) => (
               <div key={i} className="flex items-start justify-between gap-4 py-1 border-b border-line/30 last:border-0">
                 <div className="flex gap-3">
@@ -242,14 +310,14 @@ export default function DashboardPage() {
         <div className="bg-surface border border-line rounded-2xl p-6 shadow-xs">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-xs font-bold text-ink uppercase tracking-wider">My Tasks</h3>
-            <span className="bg-indigo-light text-indigo text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full">4 Open</span>
+            <span className="bg-indigo-light text-[#0071E3] text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full">4 Open</span>
           </div>
 
           <div className="space-y-3">
             {[
-              { title: "Respond to office action for PAT-8841", details: "Aisha Bennett", due: "Due Today", sev: "Critical", style: "bg-rust-light text-rust", route: "/patents" },
-              { title: "Review revised inventor declarations", details: "You", due: "Due Tomorrow", sev: "Medium", style: "bg-amber-light text-amber", route: "/disclosures" },
-              { title: "Approve license milestone invoice", details: "You", due: "Due in 2 days", sev: "High", style: "bg-rust-light text-rust", route: "/licenses" },
+              { title: "Respond to office action for PAT-8841", details: "Aisha Bennett", due: "Due Today", sev: "Critical", style: "bg-[#FF3B30]/8 text-[#FF3B30]", route: "/patents" },
+              { title: "Review revised inventor declarations", details: "You", due: "Due Tomorrow", sev: "Medium", style: "bg-[#FF9500]/8 text-[#FF9500]", route: "/disclosures" },
+              { title: "Approve license milestone invoice", details: "You", due: "Due in 2 days", sev: "High", style: "bg-[#FF3B30]/8 text-[#FF3B30]", route: "/licenses" },
               { title: "Update saved report for quarterly board review", details: "Rohan Gupta", due: "Due in 4 days", sev: "Low", style: "bg-paper text-ink/50", route: "/reports" }
             ].map((task, i) => (
               <div

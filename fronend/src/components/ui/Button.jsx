@@ -1,10 +1,10 @@
 export default function Button({ variant = 'primary', className = '', loading = false, icon, children, ...props }) {
-  const base = 'inline-flex items-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-all duration-200 cursor-pointer justify-center select-none active:scale-[0.97] disabled:opacity-50 disabled:pointer-events-none relative overflow-hidden'
+  const base = 'inline-flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-xs font-semibold transition-all duration-150 cursor-pointer justify-center select-none active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none relative overflow-hidden'
   const variants = {
-    primary: 'bg-gradient-to-r from-indigo to-indigo-dark text-white hover:shadow-lg hover:shadow-indigo/20 hover:-translate-y-0.5',
-    ghost: 'text-ink bg-surface hover:bg-paper border border-line shadow-xs hover:shadow-sm hover:-translate-y-0.5',
-    danger: 'bg-gradient-to-r from-rust to-[#cc3325] text-white hover:shadow-lg hover:shadow-rust/20 hover:-translate-y-0.5',
-    success: 'bg-gradient-to-r from-teal to-[#2ba84a] text-white hover:shadow-lg hover:shadow-teal/20 hover:-translate-y-0.5',
+    primary: 'bg-gradient-to-b from-[#0076f7] to-[#0071E3] text-white hover:brightness-105 active:brightness-95 shadow-sm border border-[#006bd8]',
+    ghost: 'text-[#1d1d1f] bg-white hover:bg-[#F5F5F7] border border-[#d2d2d7] shadow-xs active:bg-[#ECECEC]',
+    danger: 'bg-gradient-to-b from-[#ff453a] to-[#FF3B30] text-white hover:brightness-105 active:brightness-95 shadow-sm border border-[#e5352b]',
+    success: 'bg-gradient-to-b from-[#34c759] to-[#2eb852] text-white hover:brightness-105 active:brightness-95 shadow-sm border border-[#2ab04d]',
   }
   return (
     <button
@@ -13,11 +13,11 @@ export default function Button({ variant = 'primary', className = '', loading = 
       {...props}
     >
       {loading && (
-        <svg className="w-4 h-4 animate-spinner" viewBox="0 0 24 24" fill="none">
+        <svg className="w-3.5 h-3.5 animate-spinner text-current" viewBox="0 0 24 24" fill="none">
           <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="3" strokeDasharray="31.416" strokeDashoffset="10" strokeLinecap="round" />
         </svg>
       )}
-      {!loading && icon && <span className="w-4 h-4 shrink-0">{icon}</span>}
+      {!loading && icon && <span className="w-3.5 h-3.5 shrink-0">{icon}</span>}
       {children}
     </button>
   )
