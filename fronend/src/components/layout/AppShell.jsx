@@ -235,17 +235,24 @@ export default function AppShell() {
   const hasUnread = notifications.some(n => !n.read)
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#F5F5F7]">
+    <div className="flex flex-col min-h-screen bg-[#F5F5F7]/40 relative overflow-x-hidden">
+      {/* Dynamic Animated Ambient Mesh Glow Blobs */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div className="absolute top-[-10%] left-[-8%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-[#0071E3]/7 via-transparent to-transparent blur-[130px] animate-float" style={{ animationDuration: '18s' }} />
+        <div className="absolute bottom-[-10%] right-[-8%] w-[50%] h-[50%] rounded-full bg-gradient-to-br from-[#34C759]/5 via-transparent to-transparent blur-[130px] animate-float" style={{ animationDuration: '22s', animationDelay: '3s' }} />
+        <div className="absolute top-[35%] right-[18%] w-[35%] h-[35%] rounded-full bg-gradient-to-br from-[#FF9500]/3.5 via-transparent to-transparent blur-[110px] animate-float" style={{ animationDuration: '20s', animationDelay: '6s' }} />
+      </div>
+
       {/* Premium Apple Header Bar */}
-      <header className="sticky top-0 z-50 bg-[#FFFFFF]/80 backdrop-blur-md border-b border-[#E5E5E7] px-6 py-2 flex items-center justify-between gap-4 shadow-sm">
+      <header className="sticky top-0 z-50 bg-[#FFFFFF]/60 backdrop-blur-xl border-b border-[#E5E5E7]/55 px-6 py-2.5 flex items-center justify-between gap-4 shadow-2xs select-none">
         <div className="flex items-center gap-6">
           {/* Interactive Workspace Dropdown */}
           <div className="relative" ref={dropdownRef}>
             <div
               onClick={() => setWorkspaceOpen(!workspaceOpen)}
-              className="flex items-center gap-2 border border-[#D2D2D7] rounded-lg px-2.5 py-1.5 bg-[#FFFFFF] hover:bg-[#F5F5F7] transition-all duration-200 cursor-pointer shadow-xs active:scale-[0.98] select-none group"
+              className="flex items-center gap-2 rounded-xl px-3 py-1.5 bg-[#E8E8ED]/25 hover:bg-[#E8E8ED]/55 transition-all duration-200 cursor-pointer select-none group border border-transparent active:scale-[0.98] outline-none"
             >
-              <div className="w-5 h-5 rounded-md bg-gradient-to-br from-[#0088FF] to-[#0071E3] flex items-center justify-center text-white shrink-0 shadow-sm">
+              <div className="w-5 h-5 rounded-lg bg-gradient-to-br from-[#0088FF] to-[#0071E3] flex items-center justify-center text-white shrink-0 shadow-sm shadow-[#0071E3]/15">
                 <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
                   <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
                 </svg>
@@ -266,7 +273,7 @@ export default function AppShell() {
 
             {/* Switcher Dropdown Menu */}
             {workspaceOpen && (
-              <div className="absolute top-10 left-0 mt-1.5 w-60 bg-white border border-[#E5E5E7] rounded-xl shadow-lg p-1.5 z-50 animate-scale-in">
+              <div className="absolute top-10 left-0 mt-1.5 w-60 bg-white/95 backdrop-blur-xl border border-[#E5E5E7] rounded-xl shadow-lg p-1.5 z-50 animate-scale-in">
                 <div className="px-2.5 py-1 text-[9px] font-bold text-[#86868B] uppercase tracking-wider">
                   Select Workspace Portal
                 </div>
@@ -299,17 +306,17 @@ export default function AppShell() {
           </div>
 
           {/* Premium Segmented Navigation Tabs */}
-          <nav className="flex items-center bg-[#E3E3E5]/50 p-1 rounded-xl border border-[#D2D2D7]/40 shadow-xs gap-0.5">
+          <nav className="flex items-center bg-[#E3E3E5]/40 backdrop-blur-md p-1 rounded-xl border border-[#D2D2D7]/20 shadow-3xs gap-0.5">
             {TABS.filter((tab) => !tab.roles || tab.roles.includes(user?.role)).map((tab) => (
               <NavLink
                 key={tab.to}
                 to={tab.to}
                 end={tab.to === '/'}
                 className={({ isActive }) =>
-                  `px-4 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 cursor-pointer select-none ${
+                  `px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 cursor-pointer select-none outline-none focus:outline-none ${
                     isActive
-                      ? 'bg-white text-[#1D1D1F] shadow-sm font-bold'
-                      : 'text-[#86868B] hover:text-[#1D1D1F] hover:bg-white/40'
+                      ? 'bg-white text-[#1D1D1F] shadow-sm font-bold scale-[1.01] border border-[#E5E5E7]/40'
+                      : 'text-[#86868B] hover:text-[#1D1D1F] hover:bg-white/40 border border-transparent'
                   }`
                 }
               >
@@ -320,19 +327,19 @@ export default function AppShell() {
         </div>
 
         {/* Right Action Icons & Profile */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-5">
           {/* Active Global Search Bar Trigger */}
           <div
             onClick={() => setSearchOpen(true)}
-            className="relative max-w-[220px] w-48 hidden lg:block cursor-pointer select-none group"
+            className="relative max-w-[220px] w-44 hidden lg:block cursor-pointer select-none group animate-fade-in outline-none"
           >
             <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#86868B] group-hover:text-[#1D1D1F] transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
-            <div className="w-full rounded-lg bg-[#E8E8ED]/40 border border-[#D2D2D7]/30 pl-8.5 pr-11 py-2 text-xs text-[#86868B] hover:bg-[#E8E8ED]/70 transition-colors shadow-inner flex items-center justify-between">
+            <div className="w-full rounded-lg bg-[#E8E8ED]/25 hover:bg-[#E8E8ED]/55 border border-transparent pl-8.5 pr-11 py-2 text-xs text-[#86868B] transition-colors shadow-3xs flex items-center justify-between">
               <span>Search...</span>
             </div>
-            <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[9px] font-bold text-[#86868B] bg-white border border-[#D2D2D7]/60 rounded-md px-1.5 py-0.5 leading-none shadow-3xs">
+            <span className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[9px] font-bold text-[#86868B] bg-white border border-[#D2D2D7]/40 rounded-md px-1.5 py-0.5 leading-none shadow-3xs">
               ⌘K
             </span>
           </div>
@@ -340,7 +347,7 @@ export default function AppShell() {
           {/* Help Center Button */}
           <button
             onClick={() => setHelpOpen(true)}
-            className="p-2 hover:bg-[#E8E8ED]/60 text-[#86868B] hover:text-[#1D1D1F] rounded-lg transition-colors shrink-0 cursor-pointer active:scale-95"
+            className="p-2 hover:bg-[#E8E8ED]/50 text-[#86868B] hover:text-[#1D1D1F] rounded-lg transition-colors shrink-0 cursor-pointer active:scale-95 outline-none focus:outline-none"
             title="Help Support"
           >
             <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -352,7 +359,7 @@ export default function AppShell() {
           <div className="relative" ref={notificationsRef}>
             <button
               onClick={() => setNotificationsOpen(!notificationsOpen)}
-              className="relative p-2 hover:bg-[#E8E8ED]/60 text-[#86868B] hover:text-[#1D1D1F] rounded-lg transition-colors shrink-0 cursor-pointer active:scale-95"
+              className="relative p-2 hover:bg-[#E8E8ED]/50 text-[#86868B] hover:text-[#1D1D1F] rounded-lg transition-colors shrink-0 cursor-pointer active:scale-95 outline-none focus:outline-none"
               title="Notifications"
             >
               <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -364,7 +371,7 @@ export default function AppShell() {
             </button>
 
             {notificationsOpen && (
-              <div className="absolute top-10 right-0 mt-1.5 w-80 bg-white border border-[#E5E5E7] rounded-xl shadow-lg p-2.5 z-50 animate-scale-in">
+              <div className="absolute top-10 right-0 mt-1.5 w-80 bg-white/95 backdrop-blur-xl border border-[#E5E5E7] rounded-xl shadow-lg p-2.5 z-50 animate-scale-in">
                 <div className="flex items-center justify-between px-2 py-1">
                   <span className="text-[10px] font-bold text-[#86868B] uppercase tracking-wider">Alert Center</span>
                   {hasUnread && (
@@ -402,7 +409,7 @@ export default function AppShell() {
             )}
           </div>
 
-          <div className="h-5 w-px bg-[#D2D2D7] shrink-0" />
+          <div className="h-5 w-px bg-[#E5E5E7] shrink-0" />
 
           {/* Profile Card Section */}
           <div className="flex items-center gap-3">
@@ -414,13 +421,13 @@ export default function AppShell() {
             {/* User Details label */}
             <div className="hidden md:block leading-none text-left shrink-0">
               <p className="text-xs font-bold text-[#1D1D1F] tracking-tight">{user?.full_name || 'User'}</p>
-              <p className="text-[9px] text-[#86868B] font-bold uppercase tracking-wider mt-0.5">{user?.role?.replaceAll('_', ' ') || 'IP Manager'}</p>
+              <p className="text-[9px] text-[#86868B] font-bold uppercase tracking-wider mt-1">{user?.role?.replaceAll('_', ' ') || 'IP Manager'}</p>
             </div>
 
             {/* Logout Icon Button */}
             <button
               onClick={logout}
-              className="text-[#86868B] hover:text-[#FF3B30] p-1.5 hover:bg-[#E8E8ED]/60 rounded-lg cursor-pointer transition-colors active:scale-95 shrink-0"
+              className="text-[#86868B] hover:text-[#FF3B30] p-1.5 hover:bg-[#E8E8ED]/50 rounded-lg cursor-pointer transition-colors active:scale-95 shrink-0 outline-none focus:outline-none"
               title="Sign Out"
             >
               <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -432,7 +439,7 @@ export default function AppShell() {
       </header>
 
       {/* Subheader & Breadcrumbs */}
-      <div className="bg-[#FFFFFF]/40 border-b border-[#E5E5E7] px-6 py-2.5 flex items-center gap-1.5 text-[10px] font-semibold text-[#86868B] select-none">
+      <div className="bg-[#FFFFFF]/25 backdrop-blur-md border-b border-[#E5E5E7]/55 px-6 py-2.5 flex items-center gap-1.5 text-[10px] font-semibold text-[#86868B] select-none z-10">
         <NavLink to="/" className="hover:text-[#1D1D1F] transition-colors">Home</NavLink>
         {segments.map((seg, i) => (
           <span key={i} className="flex items-center gap-1.5">
@@ -447,7 +454,7 @@ export default function AppShell() {
       </div>
 
       {/* Primary Page Canvas */}
-      <main className="flex-1 p-6 max-w-7xl mx-auto w-full">
+      <main className="flex-1 p-6 max-w-7xl mx-auto w-full z-10 relative">
         <div key={transitionKey} className="page-transition">
           <Outlet />
         </div>
@@ -455,9 +462,9 @@ export default function AppShell() {
 
       {/* Apple Spotlight Style Global Search Modal */}
       {searchOpen && (
-        <div className="fixed inset-0 z-50 bg-[#1D1D1F]/25 backdrop-blur-xs flex items-start justify-center pt-[12vh] p-4 modal-backdrop" onClick={() => setSearchOpen(false)}>
+        <div className="fixed inset-0 z-50 bg-[#1D1D1F]/20 backdrop-blur-md flex items-start justify-center pt-[12vh] p-4 modal-backdrop" onClick={() => setSearchOpen(false)}>
           <div
-            className="w-full max-w-xl bg-white border border-[#E5E5E7] rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[500px] modal-card"
+            className="w-full max-w-xl bg-white/95 backdrop-blur-xl border border-[#E5E5E7]/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[500px] modal-card"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Input Wrapper */}
@@ -474,7 +481,7 @@ export default function AppShell() {
                 onKeyDown={handleSearchKeyDown}
                 className="w-full pl-11 pr-16 py-4 text-sm text-[#1D1D1F] placeholder-[#86868B] bg-transparent outline-none border-none"
               />
-              <span className="absolute right-4 text-[9px] font-bold text-[#86868B] bg-[#F5F5F7] border border-[#D2D2D7]/75 rounded px-1.5 py-0.5 shadow-3xs select-none">
+              <span className="absolute right-4 text-[9px] font-bold text-[#86868B] bg-[#F5F5F7] border border-[#D2D2D7]/60 rounded px-1.5 py-0.5 shadow-3xs select-none">
                 ESC
               </span>
             </div>
@@ -491,7 +498,7 @@ export default function AppShell() {
                         onMouseEnter={() => setActiveIndex(index)}
                         onClick={() => handleSearchResultClick(item)}
                         className={`px-3 py-2.5 rounded-xl cursor-pointer flex items-center justify-between transition-colors ${
-                          isFocused ? 'bg-[#0071E3] text-white' : 'hover:bg-[#F5F5F7]'
+                          isFocused ? 'bg-[#0071E3] text-white shadow-md shadow-[#0071E3]/20' : 'hover:bg-[#F5F5F7]'
                         }`}
                       >
                         <div className="min-w-0 flex-1">
@@ -564,7 +571,7 @@ export default function AppShell() {
 
       {/* Apple Spotlight Style Help & Support Dialog */}
       {helpOpen && (
-        <div className="fixed inset-0 z-50 bg-[#1D1D1F]/25 backdrop-blur-xs flex items-center justify-center p-4 modal-backdrop" onClick={() => setHelpOpen(false)}>
+        <div className="fixed inset-0 z-50 bg-[#1D1D1F]/20 backdrop-blur-md flex items-center justify-center p-4 modal-backdrop" onClick={() => setHelpOpen(false)}>
           <div
             className="w-full max-w-md bg-white border border-[#E5E5E7] rounded-2xl shadow-2xl overflow-hidden flex flex-col modal-card"
             onClick={(e) => e.stopPropagation()}

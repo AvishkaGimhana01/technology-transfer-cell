@@ -79,24 +79,27 @@ export default function DashboardPage() {
   return (
     <>
       {/* Premium macOS Greeting Banner with Real-time Operating Watch */}
-      <div className="bg-gradient-to-r from-[#FFFFFF] to-[#F5F5F7] border border-[#E5E5E7] rounded-2xl p-6 mb-8 shadow-xs flex items-center justify-between gap-4 animate-scale-in">
+      <div className="bg-gradient-to-br from-white via-white to-[#0071E3]/[0.02] border border-[#E5E5E7]/80 rounded-2xl p-6 mb-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 animate-scale-in relative overflow-hidden">
+        {/* Glow orb decoration */}
+        <div className="absolute right-0 top-0 w-24 h-24 rounded-full bg-gradient-to-br from-[#0071E3]/10 to-transparent blur-xl pointer-events-none select-none" />
+        
         <div>
-          <span className="text-[10px] font-bold text-[#0071E3] uppercase tracking-widest">Operational Console</span>
-          <h2 className="text-xl font-bold text-[#1D1D1F] mt-1">
+          <span className="text-[10px] font-bold text-[#0071E3] uppercase tracking-widest bg-[#0071E3]/5 px-2 py-0.5 rounded-md">Operational Console</span>
+          <h2 className="text-xl font-bold text-[#1D1D1F] mt-2">
             {getGreeting()}, {user?.full_name || 'IP Manager'}
           </h2>
           <p className="text-xs text-[#86868B] mt-0.5">Track upcoming due dates, disclosures, patent filings, and licensing royalty metrics.</p>
         </div>
         
         {/* Real-time Ticking Analog & Digital Watch Component */}
-        <div className="flex items-center gap-3 bg-white border border-[#E5E5E7] p-2 rounded-xl shadow-2xs shrink-0 select-none">
+        <div className="flex items-center gap-3 bg-white/70 backdrop-blur-md border border-[#E5E5E7]/60 p-2 rounded-xl shadow-3xs shrink-0 select-none z-10">
           <div className="flex flex-col items-end leading-none">
             <span className="text-[8px] font-bold text-[#86868B] uppercase tracking-wider">Local Time</span>
-            <span className="text-xs font-bold text-[#1D1D1F] mt-1 tabular-nums">
+            <span className="text-xs font-bold text-[#1D1D1F] mt-1.5 tabular-nums">
               {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
             </span>
           </div>
-          <div className="w-8 h-8 rounded-full bg-[#F5F5F7] flex items-center justify-center shrink-0 border border-[#D2D2D7]/50 relative">
+          <div className="w-8 h-8 rounded-full bg-[#F5F5F7] flex items-center justify-center shrink-0 border border-[#D2D2D7]/50 relative shadow-inner">
             <svg className="w-6 h-6 text-[#1D1D1F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2}>
               <circle cx="12" cy="12" r="9" className="stroke-[#E5E5E7]" strokeWidth={1.5} />
               {/* Hour hand */}
@@ -139,68 +142,75 @@ export default function DashboardPage() {
         </div>
       ) : (
         /* Stat Cards */
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-5 mb-8 stagger-children">
-          <div className="bg-surface border border-line rounded-2xl p-5 shadow-xs card-hover border-l-4 border-l-indigo">
-            <div className="flex items-center justify-between mb-3">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-5 mb-8 stagger-children">
+          {/* Filed Card */}
+          <div className="bg-gradient-to-br from-white to-[#0071E3]/[0.015] border border-line rounded-2xl p-5 shadow-2xs hover:border-[#0071E3]/35 hover:shadow-sm hover:shadow-[#0071E3]/[0.02] transition-all duration-200 hover:-translate-y-0.5">
+            <div className="flex items-center justify-between mb-3.5">
               <p className="text-[10px] font-bold text-ink/40 uppercase tracking-wider">Filed</p>
-              <div className="w-7 h-7 rounded-lg bg-indigo-light flex items-center justify-center text-indigo">
+              <div className="w-8 h-8 rounded-xl bg-[#0071E3]/7 flex items-center justify-center text-[#0071E3] shadow-3xs">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
             </div>
-            <h3 className="text-3xl font-extrabold text-ink"><AnimatedCounter value={stats.filed} /></h3>
-            <p className="text-[10px] text-ink/40 mt-1.5 font-medium">+6 this quarter</p>
+            <h3 className="text-3xl font-extrabold text-ink leading-none"><AnimatedCounter value={stats.filed} /></h3>
+            <p className="text-[10px] text-ink/40 mt-2 font-semibold flex items-center gap-1">
+              <span className="text-[#34C759]">↑</span> +6 this quarter
+            </p>
           </div>
 
-          <div className="bg-surface border border-line rounded-2xl p-5 shadow-xs card-hover border-l-4 border-l-teal">
-            <div className="flex items-center justify-between mb-3">
+          {/* Granted Card */}
+          <div className="bg-gradient-to-br from-white to-[#34C759]/[0.015] border border-line rounded-2xl p-5 shadow-2xs hover:border-[#34C759]/35 hover:shadow-sm hover:shadow-[#34C759]/[0.02] transition-all duration-200 hover:-translate-y-0.5">
+            <div className="flex items-center justify-between mb-3.5">
               <p className="text-[10px] font-bold text-ink/40 uppercase tracking-wider">Granted</p>
-              <div className="w-7 h-7 rounded-lg bg-teal-light flex items-center justify-center text-teal">
+              <div className="w-8 h-8 rounded-xl bg-[#34C759]/7 flex items-center justify-center text-[#34C759] shadow-3xs">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5a2 2 0 10-2 2h2z" />
                 </svg>
               </div>
             </div>
-            <h3 className="text-3xl font-extrabold text-ink"><AnimatedCounter value={stats.granted} /></h3>
-            <p className="text-[10px] text-ink/40 mt-1.5 font-medium">2 notices this month</p>
+            <h3 className="text-3xl font-extrabold text-ink leading-none"><AnimatedCounter value={stats.granted} /></h3>
+            <p className="text-[10px] text-ink/40 mt-2 font-semibold">2 notices this month</p>
           </div>
 
-          <div className="bg-surface border border-line rounded-2xl p-5 shadow-xs card-hover border-l-4 border-l-amber">
-            <div className="flex items-center justify-between mb-3">
+          {/* Pending Card */}
+          <div className="bg-gradient-to-br from-white to-[#FF9500]/[0.015] border border-line rounded-2xl p-5 shadow-2xs hover:border-[#FF9500]/35 hover:shadow-sm hover:shadow-[#FF9500]/[0.02] transition-all duration-200 hover:-translate-y-0.5">
+            <div className="flex items-center justify-between mb-3.5">
               <p className="text-[10px] font-bold text-ink/40 uppercase tracking-wider">Pending</p>
-              <div className="w-7 h-7 rounded-lg bg-amber-light flex items-center justify-center text-amber">
+              <div className="w-8 h-8 rounded-xl bg-[#FF9500]/7 flex items-center justify-center text-[#FF9500] shadow-3xs">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
               </div>
             </div>
-            <h3 className="text-3xl font-extrabold text-ink"><AnimatedCounter value={stats.pending} /></h3>
-            <p className="text-[10px] text-ink/40 mt-1.5 font-medium">Under internal review</p>
+            <h3 className="text-3xl font-extrabold text-ink leading-none"><AnimatedCounter value={stats.pending} /></h3>
+            <p className="text-[10px] text-ink/40 mt-2 font-semibold">Under internal review</p>
           </div>
 
-          <div className="bg-surface border border-line rounded-2xl p-5 shadow-xs card-hover border-l-4 border-l-rust">
-            <div className="flex items-center justify-between mb-3">
+          {/* Renewals Card */}
+          <div className="bg-gradient-to-br from-white to-[#FF3B30]/[0.015] border border-line rounded-2xl p-5 shadow-2xs hover:border-[#FF3B30]/35 hover:shadow-sm hover:shadow-[#FF3B30]/[0.02] transition-all duration-200 hover:-translate-y-0.5">
+            <div className="flex items-center justify-between mb-3.5">
               <p className="text-[10px] font-bold text-ink/40 uppercase tracking-wider">Renewals Due</p>
-              <div className="w-7 h-7 rounded-lg bg-rust-light flex items-center justify-center text-rust">
+              <div className="w-8 h-8 rounded-xl bg-[#FF3B30]/7 flex items-center justify-center text-[#FF3B30] shadow-3xs">
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
             </div>
-            <h3 className="text-3xl font-extrabold text-ink"><AnimatedCounter value={stats.renewals} /></h3>
-            <p className="text-[10px] text-ink/40 mt-1.5 font-medium">3 high priority</p>
+            <h3 className="text-3xl font-extrabold text-ink leading-none"><AnimatedCounter value={stats.renewals} /></h3>
+            <p className="text-[10px] text-[#FF3B30] mt-2 font-bold bg-[#FF3B30]/5 px-2 py-0.5 rounded inline-block w-fit">3 high priority</p>
           </div>
 
-          <div className="bg-surface border border-line rounded-2xl p-5 shadow-xs card-hover border-l-4 border-l-indigo">
-            <div className="flex items-center justify-between mb-3">
+          {/* Revenue Card */}
+          <div className="bg-gradient-to-br from-white to-[#0071E3]/[0.015] border border-line rounded-2xl p-5 shadow-2xs hover:border-[#0071E3]/35 hover:shadow-sm hover:shadow-[#0071E3]/[0.02] transition-all duration-200 hover:-translate-y-0.5">
+            <div className="flex items-center justify-between mb-3.5">
               <p className="text-[10px] font-bold text-ink/40 uppercase tracking-wider">Licensing Rev</p>
-              <div className="w-7 h-7 rounded-lg bg-indigo-light flex items-center justify-center text-indigo">
-                <span className="text-xs font-bold">$</span>
+              <div className="w-8 h-8 rounded-xl bg-[#0071E3]/7 flex items-center justify-center text-[#0071E3] font-bold text-sm shadow-3xs">
+                $
               </div>
             </div>
-            <h3 className="text-3xl font-extrabold text-ink">${(stats.revenue / 1000).toFixed(0)}k</h3>
-            <p className="text-[10px] text-ink/40 mt-1.5 font-medium">YTD recognized</p>
+            <h3 className="text-3xl font-extrabold text-ink leading-none">${(stats.revenue / 1000).toFixed(0)}k</h3>
+            <p className="text-[10px] text-ink/40 mt-2 font-semibold">YTD recognized</p>
           </div>
         </div>
       )}
