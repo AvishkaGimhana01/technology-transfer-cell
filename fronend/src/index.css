@@ -2,21 +2,29 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #1D1D1F; /* Apple Dark Charcoal */
-  --color-paper: #F5F5F7; /* Apple Neutral Light */
+  --color-ink: #1D1D1F;
+  /* Apple Dark Charcoal */
+  --color-paper: #F5F5F7;
+  /* Apple Neutral Light */
   --color-surface: #FFFFFF;
-  --color-line: #E8E8ED; /* Apple Thin Border */
-  --color-indigo: #0071E3; /* Apple Blue */
+  --color-line: #E8E8ED;
+  /* Apple Thin Border */
+  --color-indigo: #0071E3;
+  /* Apple Blue */
   --color-indigo-dark: #005BB5;
   --color-indigo-light: #F5F9FF;
-  --color-teal: #34C759; /* Apple Green */
+  --color-teal: #34C759;
+  /* Apple Green */
   --color-teal-light: #F2FCF4;
-  --color-amber: #FF9500; /* Apple Orange/Gold */
+  --color-amber: #FF9500;
+  /* Apple Orange/Gold */
   --color-amber-light: #FFF9F0;
-  --color-rust: #FF3B30; /* Apple Red */
+  --color-rust: #FF3B30;
+  /* Apple Red */
   --color-rust-light: #FFF2F2;
-  --color-gray: #86868B; /* Apple Secondary Gray */
-  
+  --color-gray: #86868B;
+  /* Apple Secondary Gray */
+
   --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
@@ -35,38 +43,85 @@ body {
 
 /* ── Keyframe Animations ──────────────────────────── */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(8px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideDown {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.97); }
-  to   { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%      { transform: translateY(-4px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 @keyframes pulseDot {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50%      { opacity: 0.5; transform: scale(1.25); }
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: scale(1.25);
+  }
 }
 
 /* ── Animation Utility Classes ────────────────────── */
@@ -95,14 +150,29 @@ body {
 }
 
 /* Stagger children */
-.stagger-children > * {
+.stagger-children>* {
   animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
-.stagger-children > *:nth-child(2) { animation-delay: 40ms; }
-.stagger-children > *:nth-child(3) { animation-delay: 80ms; }
-.stagger-children > *:nth-child(4) { animation-delay: 120ms; }
-.stagger-children > *:nth-child(5) { animation-delay: 160ms; }
+
+.stagger-children>*:nth-child(1) {
+  animation-delay: 0ms;
+}
+
+.stagger-children>*:nth-child(2) {
+  animation-delay: 40ms;
+}
+
+.stagger-children>*:nth-child(3) {
+  animation-delay: 80ms;
+}
+
+.stagger-children>*:nth-child(4) {
+  animation-delay: 120ms;
+}
+
+.stagger-children>*:nth-child(5) {
+  animation-delay: 160ms;
+}
 
 /* ── Glassmorphism (Apple-style blur) ─────────────── */
 .glass {
@@ -113,12 +183,10 @@ body {
 
 /* ── Skeleton Shimmer ─────────────────────────────── */
 .skeleton {
-  background: linear-gradient(
-    90deg,
-    #e8e8ed 25%,
-    #f2f2f7 37%,
-    #e8e8ed 63%
-  );
+  background: linear-gradient(90deg,
+      #e8e8ed 25%,
+      #f2f2f7 37%,
+      #e8e8ed 63%);
   background-size: 200% 100%;
   animation: shimmer 1.6s ease-in-out infinite;
   border-radius: 6px;
@@ -128,6 +196,7 @@ body {
 .card-hover {
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
+
 .card-hover:hover {
   transform: translateY(-1px);
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.02);
@@ -138,12 +207,15 @@ body {
 .accent-left-indigo {
   border-left: 3px solid var(--color-indigo);
 }
+
 .accent-left-teal {
   border-left: 3px solid var(--color-teal);
 }
+
 .accent-left-amber {
   border-left: 3px solid var(--color-amber);
 }
+
 .accent-left-rust {
   border-left: 3px solid var(--color-rust);
 }
@@ -151,7 +223,7 @@ body {
 /* ── Apple Auth Gradient ──────────────────────────── */
 .auth-gradient-bg {
   background-color: #000000;
-  background-image: 
+  background-image:
     radial-gradient(at 10% 20%, rgba(0, 113, 227, 0.12) 0px, transparent 50%),
     radial-gradient(at 90% 80%, rgba(52, 199, 89, 0.08) 0px, transparent 50%),
     radial-gradient(at 50% 50%, rgba(29, 29, 31, 0.95) 0px, transparent 100%);
@@ -169,6 +241,7 @@ body {
 .modal-backdrop {
   animation: fadeIn 0.2s ease-out both;
 }
+
 .modal-card {
   animation: scaleIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
@@ -184,13 +257,16 @@ body {
   width: 5px;
   height: 5px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: rgba(0, 0, 0, 0.1);
   border-radius: 10px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(0, 0, 0, 0.2);
 }
@@ -217,26 +293,77 @@ body {
   height: 42px;
   border: 1px solid var(--color-line);
 }
+
 .heatmap-box:hover {
   transform: scale(1.02);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
 }
+
 .heatmap-low {
   background-color: #FFFFFF;
   color: var(--color-gray);
 }
+
 .heatmap-moderate {
   background-color: var(--color-indigo-light);
   color: var(--color-indigo);
   border-color: rgba(0, 113, 227, 0.12);
 }
+
 .heatmap-high {
   background-color: var(--color-amber-light);
   color: var(--color-amber);
   border-color: rgba(255, 149, 0, 0.15);
 }
+
 .heatmap-critical {
   background-color: var(--color-rust-light);
   color: var(--color-rust);
   border-color: rgba(255, 59, 48, 0.15);
+}
+
+/* ── Modern Navigation Redesign Keyframes & Classes ── */
+@keyframes dropdownEnter {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes drawerSlideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-dropdown-enter {
+  animation: dropdownEnter 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-drawer-slide-in {
+  animation: drawerSlideIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Glassmorphism for submenus and popovers */
+.glass-dropdown {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(24px) saturate(210%);
+  -webkit-backdrop-filter: blur(24px) saturate(210%);
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+/* Moving premium gradient bar at top of header */
+.header-glow-line {
+  height: 2.5px;
+  width: 100%;
+  background: linear-gradient(90deg, #0071E3 0%, #8E2DE2 25%, #4A00E0 50%, #FF9500 75%, #0071E3 100%);
+  background-size: 200% auto;
+  animation: shimmer 4s linear infinite;
 }

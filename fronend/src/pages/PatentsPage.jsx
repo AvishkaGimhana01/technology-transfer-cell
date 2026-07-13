@@ -343,15 +343,15 @@ export default function PatentsPage() {
             <div className="space-y-3 text-xs animate-fade-in">
               <div className="flex justify-between border-b border-line/30 pb-2">
                 <span className="text-ink/50">Allocated IP Budget</span>
-                <span className="font-bold text-ink/80 tabular">${selectedPatent.budget?.toLocaleString() || '0'}</span>
+                <span className="font-bold text-ink/80 tabular">Rs. {selectedPatent.budget?.toLocaleString() || '0'}</span>
               </div>
               <div className="flex justify-between border-b border-line/30 pb-2">
                 <span className="text-ink/50">Attorney Fees Paid</span>
-                <span className="font-bold text-ink/80 tabular">$12,500</span>
+                <span className="font-bold text-ink/80 tabular">Rs. 12,500</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-ink/50">Remaining Budget</span>
-                <span className="font-bold text-teal tabular">${(selectedPatent.budget - 12500 || 0).toLocaleString()}</span>
+                <span className="font-bold text-teal tabular">Rs. {(selectedPatent.budget - 12500 || 0).toLocaleString()}</span>
               </div>
             </div>
           )}

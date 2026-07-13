@@ -26,6 +26,21 @@ export default function LoginPage() {
     }
   }
 
+  async function handleQuickLogin(emailVal, passwordVal) {
+    setEmail(emailVal)
+    setPassword(passwordVal)
+    setError('')
+    setLoading(true)
+    try {
+      await login(emailVal, passwordVal)
+      navigate('/')
+    } catch (err) {
+      setError(err.response?.data?.detail || 'Incorrect email or password.')
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center auth-gradient-bg relative overflow-hidden px-4">
       {/* Floating Shapes */}
@@ -86,6 +101,28 @@ export default function LoginPage() {
               Register here
             </Link>
           </p>
+        </div>
+
+        <div className="pt-3 border-t border-line/20 space-y-2.5">
+          <p className="text-[10px] font-bold text-ink/35 uppercase tracking-wider text-center">Quick Portal Demo Login</p>
+          <div className="grid grid-cols-2 gap-2">
+            <button
+              id="demo-admin-btn"
+              type="button"
+              onClick={() => handleQuickLogin('admin@university.ac.lk', 'admin123')}
+              className="px-2 py-1.5 rounded-lg border border-line bg-paper hover:bg-line text-[11px] font-bold text-ink/75 transition-colors cursor-pointer text-center outline-none active:scale-[0.98] select-none"
+            >
+              💼 Admin Login
+            </button>
+            <button
+              id="demo-user-btn"
+              type="button"
+              onClick={() => handleQuickLogin('user@university.ac.lk', 'user123')}
+              className="px-2 py-1.5 rounded-lg border border-line bg-paper hover:bg-line text-[11px] font-bold text-ink/75 transition-colors cursor-pointer text-center outline-none active:scale-[0.98] select-none"
+            >
+              🎓 Faculty Login
+            </button>
+          </div>
         </div>
       </form>
     </div>

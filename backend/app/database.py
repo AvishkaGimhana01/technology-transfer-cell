@@ -25,13 +25,39 @@ def init_db():
 
 
 def seed_data(session: Session):
+    from app.models.user import User
+    from app.core.security import hash_password
+    from app.models.enums import UserRole
     from app.models.patent import Patent
     from app.models.disclosure import InventionDisclosure
     from app.models.deadline import Deadline
     from app.models.license import License
     from app.models.prosecution import ProsecutionEvent
     
-    # 1. Seed Patents
+    # 0. Seed Users
+    for email, role, name, pw in [
+        ("admin@university.ac.lk", UserRole.super_admin, "TTC Administrator", "admin123"),
+        ("staff@university.ac.lk", UserRole.ttc_staff, "Sarah Staff Liaison", "staff123"),
+        ("user@university.ac.lk", UserRole.faculty, "Prof. Daniel Shaw", "user123"),
+    ]:
+        existing = session.exec(select(User).where(User.email == email)).first()
+        if existing:
+            existing.hashed_password = hash_password(pw)
+            existing.role = role
+            existing.full_name = name
+            session.add(existing)
+        else:
+            u = User(
+                full_name=name,
+                email=email,
+                role=role,
+                department="TTC Central" if "TTC" in name or "Sarah" in name else "Electrical & Info",
+                phone="+94 (11) 234-5678" if "Admin" in name else "+94 (77) 123-4567",
+                hashed_password=hash_password(pw)
+            )
+            session.add(u)
+    session.commit()
+
     if not session.exec(select(Patent)).first():
         pat1 = Patent(
             title="Adaptive edge AI scheduler",
@@ -209,3 +235,49 @@ def seed_data(session: Session):
         )
         session.add_all([lic1, lic2])
         session.commit()
+
+    # 5. Seed Projects
+    from app.models.project import IndustryProject
+    from app.models.enums import ProjectStatus
+    from app.models.user import User
+
+    if not session.exec(select(IndustryProject)).first():
+        user_shaw = session.exec(select(User).where(User.email == "user@university.ac.lk")).first()
+        admin_user = session.exec(select(User).where(User.email == "admin@university.ac.lk")).first()
+
+        proj1 = IndustryProject(
+            title="IoT-Enabled Campus Smart Grid Optimization",
+            description="Developing energy-efficient load balancing for local microgrids.",
+            industry_partner_name="Lanka Electricity Company (LECO)",
+            faculty_lead_id=user_shaw.id if user_shaw else None,
+            status=ProjectStatus.ongoing,
+            start_date=date(2026, 1, 10),
+            end_date=date(2026, 12, 20),
+            budget=4500000.0,
+            created_by_id=admin_user.id if admin_user else None
+        )
+        proj2 = IndustryProject(
+            title="Wearable Health Monitoring Fabric Calibration",
+            description="Fabrication of smart sensors using graphene composite materials.",
+            industry_partner_name="Medtronic Sri Lanka",
+            faculty_lead_id=user_shaw.id if user_shaw else None,
+            status=ProjectStatus.proposed,
+            start_date=date(2026, 6, 1),
+            end_date=date(2027, 6, 1),
+            budget=2800000.0,
+            created_by_id=admin_user.id if admin_user else None
+        )
+        proj3 = IndustryProject(
+            title="Enterprise Threat Watermarking Core",
+            description="Zero-trust authentication and neural network watermarking for banking models.",
+            industry_partner_name="Virtusa Corp",
+            faculty_lead_id=None,
+            status=ProjectStatus.completed,
+            start_date=date(2025, 3, 1),
+            end_date=date(2026, 3, 1),
+            budget=6500000.0,
+            created_by_id=admin_user.id if admin_user else None
+        )
+        session.add_all([proj1, proj2, proj3])
+        session.commit()
+

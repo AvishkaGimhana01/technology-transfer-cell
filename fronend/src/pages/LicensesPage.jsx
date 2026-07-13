@@ -13,7 +13,7 @@ const columns = [
   { key: 'title', label: 'License Agreement' },
   { key: 'licensee_name', label: 'Licensee Partner' },
   { key: 'royalty_rate', label: 'Royalty Rate', render: (r) => r.royalty_rate ? `${r.royalty_rate}%` : '—' },
-  { key: 'revenue_ytd', label: 'YTD Revenue (USD)', render: (r) => r.revenue_ytd ? `$${r.revenue_ytd.toLocaleString()}` : '—' },
+  { key: 'revenue_ytd', label: 'YTD Revenue (Rs.)', render: (r) => r.revenue_ytd ? `Rs. ${r.revenue_ytd.toLocaleString()}` : '—' },
   { key: 'status', label: 'Status', render: (r) => <StatusDot status={r.status} /> },
   { key: 'signing_date', label: 'Signing Date', render: (r) => r.signing_date || '—' },
 ]
@@ -107,9 +107,9 @@ export default function LicensesPage() {
         <h3 className="text-xs font-bold text-ink uppercase tracking-wider mb-2">Total Royalty Revenue (YTD)</h3>
         <div className="flex items-baseline gap-2">
           <span className="text-3xl font-extrabold text-indigo">
-            ${licenses.reduce((acc, curr) => acc + (curr.revenue_ytd || 0), 0).toLocaleString()}
+            Rs. {licenses.reduce((acc, curr) => acc + (curr.revenue_ytd || 0), 0).toLocaleString()}
           </span>
-          <span className="text-xs text-ink/40 font-semibold">USD</span>
+          <span className="text-xs text-ink/40 font-semibold">LKR</span>
         </div>
       </div>
 
@@ -141,8 +141,8 @@ export default function LicensesPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <span className="text-ink/45 text-[10px] font-bold uppercase">YTD Revenue (USD)</span>
-                <p className="font-bold text-ink/80 mt-1 tabular">${selectedLicense.revenue_ytd?.toLocaleString()}</p>
+                <span className="text-ink/45 text-[10px] font-bold uppercase">YTD Revenue (Rs.)</span>
+                <p className="font-bold text-ink/80 mt-1 tabular">Rs. {selectedLicense.revenue_ytd?.toLocaleString()}</p>
               </div>
               <div>
                 <span className="text-ink/45 text-[10px] font-bold uppercase">Signing Date</span>

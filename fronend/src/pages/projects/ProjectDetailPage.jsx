@@ -147,7 +147,7 @@ export default function ProjectDetailPage() {
             <div className="flex justify-between items-center border-t border-line pt-3">
               <span className="text-ink/40 text-xs font-medium">Budget</span>
               <span className="font-bold tabular text-ink">
-                {project.budget ? `$${project.budget.toLocaleString()}` : '—'}
+                {project.budget ? `Rs. ${project.budget.toLocaleString()}` : '—'}
               </span>
             </div>
             <div className="flex justify-between items-center border-t border-line pt-3">
