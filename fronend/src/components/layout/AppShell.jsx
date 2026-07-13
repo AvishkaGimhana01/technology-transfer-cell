@@ -6,6 +6,7 @@ import { listPatents } from '../../api/patents'
 import { listDisclosures } from '../../api/disclosures'
 import { listDeadlines } from '../../api/deadlines'
 import { listLicenses } from '../../api/licenses'
+import uorLogo from '../../assets/uor-logo.png'
 
 const TABS = [
   { to: '/', label: 'Dashboard' },
@@ -364,11 +365,7 @@ export default function AppShell() {
               onClick={() => setWorkspaceOpen(!workspaceOpen)}
               className="flex items-center gap-2 rounded-xl px-2.5 py-1.5 bg-white/10 hover:bg-white/15 transition-all duration-200 cursor-pointer select-none group border border-white/5 active:scale-[0.98] outline-none"
             >
-              <div className="w-5 h-5 rounded-lg bg-gradient-to-br from-[#0088FF] to-[#0071E3] flex items-center justify-center text-white shrink-0 shadow-sm shadow-[#0071E3]/15">
-                <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
-                </svg>
-              </div>
+              <img src={uorLogo} alt="University of Ruhuna" className="w-5 h-5 rounded object-contain shrink-0" />
               <span className="text-[13.5px] font-bold text-white tracking-tight">
                 {currentWorkspace}
               </span>
@@ -679,11 +676,7 @@ export default function AppShell() {
           {/* Brand Col */}
           <div className="space-y-3">
             <div className="flex items-center gap-2.5">
-              <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-[#0088FF] to-[#0071E3] flex items-center justify-center text-white shrink-0 shadow-sm shadow-[#0071E3]/15">
-                <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
+              <img src={uorLogo} alt="University of Ruhuna" className="w-6 h-6 rounded object-contain shrink-0" />
               <span className="text-xs font-extrabold text-[#1D1D1F] uppercase tracking-wider">TTC-MS Portal</span>
             </div>
             <p className="text-[11px] text-[#86868B] leading-relaxed">
@@ -717,7 +710,7 @@ export default function AppShell() {
           <div className="space-y-2 text-[11px] text-[#86868B]">
             <h4 className="text-[10px] font-bold text-[#1D1D1F] uppercase tracking-wider mb-3">Contact Support</h4>
             <p>Technology Transfer Cell (TTC)</p>
-            <p>University of Colombo, Sri Lanka</p>
+            <p>University of Ruhuna, Sri Lanka</p>
             <p className="pt-1">Email: <a href="mailto:ttc-support@university.ac.lk" className="text-[#0071E3] hover:underline font-semibold">ttc-support@university.ac.lk</a></p>
             <p>Tel: +94 (11) 234-5678 (Ext 400)</p>
           </div>
@@ -726,11 +719,11 @@ export default function AppShell() {
         <div className="max-w-7xl mx-auto h-px bg-[#E5E5E7]/55 my-6" />
 
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] text-[#86868B] font-semibold">
-          <span>© {new Date().getFullYear()} Technology Transfer Cell, University of Colombo. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Technology Transfer Cell, University of Ruhuna. All rights reserved.</span>
           <div className="flex items-center gap-4">
             <a href="#" className="hover:text-[#1D1D1F] transition-colors">Security & Privacy</a>
             <a href="#" className="hover:text-[#1D1D1F] transition-colors">Terms of Portal Use</a>
-            <a href="#" className="hover:text-[#1D1D1F] transition-colors">Colombo, Sri Lanka</a>
+            <a href="#" className="hover:text-[#1D1D1F] transition-colors">Matara, Sri Lanka</a>
           </div>
         </div>
       </footer>

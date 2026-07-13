@@ -360,7 +360,47 @@ body {
   line-height: 1.15;
   color: #FFFFFF;
   letter-spacing: -0.025em;
+  margin-bottom: 0.5rem;
+}
+
+.auth-hero-uni-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   margin-bottom: 1rem;
+}
+
+/* University logo in hero (dark bg) */
+.auth-hero-logo--img {
+  width: auto;
+  height: auto;
+  padding: 0;
+  border-radius: 0;
+  background: none;
+  border: none;
+  margin-bottom: 2.2rem;
+}
+
+.auth-uni-logo {
+  width: 125px;
+  height: 125px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.4)) drop-shadow(0 2px 8px rgba(255, 195, 0, 0.1));
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.auth-uni-logo:hover {
+  transform: scale(1.04) translateY(-2px);
+}
+
+/* Mobile university logo (light bg form panel) */
+.auth-mobile-uni-logo {
+  width: 84px;
+  height: 84px;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.08));
 }
 
 .auth-hero-subtitle {

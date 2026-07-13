@@ -4,6 +4,7 @@ import { register } from '../api/auth'
 import Input from '../components/ui/Input'
 import Select from '../components/ui/Select'
 import Button from '../components/ui/Button'
+import uorLogo from '../assets/uor-logo.png'
 
 export default function RegisterPage() {
   const navigate = useNavigate()
@@ -73,15 +74,14 @@ export default function RegisterPage() {
 
         {/* Content */}
         <div className="auth-hero-content">
-          {/* Logo mark */}
-          <div className="auth-hero-logo">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
+          {/* University Logo */}
+          <div className="auth-hero-logo--img">
+            <img src={uorLogo} alt="University of Ruhuna" className="auth-uni-logo" />
           </div>
           <h2 className="auth-hero-title">
             Join the<br />Innovation Hub
           </h2>
+          <p className="auth-hero-uni-name">University of Ruhuna</p>
           <p className="auth-hero-subtitle">
             Create your account to start managing intellectual property, track inventions, and collaborate with industry partners.
           </p>
@@ -102,9 +102,9 @@ export default function RegisterPage() {
 
         {/* Bottom attribution */}
         <div className="auth-hero-footer">
-          <span>© 2026 University TTC</span>
+          <span>© 2026 University of Ruhuna</span>
           <span className="auth-hero-dot">·</span>
-          <span>Powered by Innovation</span>
+          <span>Technology Transfer Cell</span>
         </div>
       </div>
 
@@ -114,11 +114,7 @@ export default function RegisterPage() {
           <form onSubmit={handleSubmit} className="auth-form-card auth-form-card--register animate-scale-in">
             {/* Mobile logo (hidden on desktop) */}
             <div className="auth-mobile-logo">
-              <div className="auth-logo-icon">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-              </div>
+              <img src={uorLogo} alt="University of Ruhuna" className="auth-mobile-uni-logo" />
             </div>
 
             {/* Header */}
