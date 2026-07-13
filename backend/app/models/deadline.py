@@ -1,0 +1,26 @@
+from datetime import date, datetime
+from typing import Optional
+from sqlmodel import SQLModel, Field
+
+class DeadlineBase(SQLModel):
+    record_id: str # e.g. PAT-8841, LIC-233, DISC-1021
+    title: str
+    due_date: date
+    severity: str = Field(default="medium") # low, moderate, high, critical
+    status: str = Field(default="pending") # pending, completed, overdue
+    assigned_to: Optional[str] = None
+
+class Deadline(DeadlineBase, table=True):
+    __tablename__ = "deadlines"
+    id: Optional[int] = Field(default=None, primary_key=True)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
+class DeadlineCreate(DeadlineBase):
+    pass
+
+class DeadlineRead(DeadlineBase):
+    id: int
+    created_at: datetime
+
+class DeadlineStatusUpdate(SQLModel):
+    status: str

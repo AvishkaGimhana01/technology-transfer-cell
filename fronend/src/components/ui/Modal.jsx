@@ -1,18 +1,48 @@
+import { useEffect, useCallback } from 'react'
+
 export default function Modal({ open, onClose, title, children }) {
+  const handleEscape = useCallback(
+    (e) => {
+      if (e.key === 'Escape') onClose()
+    },
+    [onClose]
+  )
+
+  useEffect(() => {
+    if (open) {
+      document.addEventListener('keydown', handleEscape)
+      document.body.style.overflow = 'hidden'
+    }
+    return () => {
+      document.removeEventListener('keydown', handleEscape)
+      document.body.style.overflow = ''
+    }
+  }, [open, handleEscape])
+
   if (!open) return null
+
   return (
-    <div className="fixed inset-0 bg-[#000000]/30 backdrop-blur-xs flex items-center justify-center z-50 p-4 transition-all duration-300">
-      <div className="bg-surface/95 backdrop-blur-md rounded-2xl w-full max-w-lg p-6 shadow-2xl border border-line/80 transform transition-all duration-300 scale-100">
-        <div className="flex items-center justify-between mb-4 pb-3 border-b border-line">
-          <h2 className="text-base font-semibold text-ink">{title}</h2>
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 modal-backdrop"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose()
+      }}
+    >
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-ink/30 backdrop-blur-sm" />
+
+      {/* Card */}
+      <div className="relative glass border border-line/50 rounded-2xl w-full max-w-lg p-6 shadow-2xl modal-card">
+        <div className="flex items-center justify-between mb-5 pb-3 border-b border-line">
+          <h2 className="text-base font-bold text-ink">{title}</h2>
           <button
             onClick={onClose}
-            className="h-6 w-6 rounded-full bg-paper hover:bg-line text-ink/50 hover:text-ink flex items-center justify-center cursor-pointer transition-colors duration-150 text-xs font-semibold leading-none"
+            className="h-7 w-7 rounded-full bg-paper hover:bg-line text-ink/40 hover:text-ink flex items-center justify-center cursor-pointer transition-all duration-150 text-xs font-bold leading-none hover:rotate-90"
           >
             ✕
           </button>
         </div>
-        {children}
+        <div className="animate-fade-in">{children}</div>
       </div>
     </div>
   )

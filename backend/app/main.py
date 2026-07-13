@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.database import init_db
 from app.routers import (
     auth, users, projects, agreements, mous, innovation_club, noticeboard, ipr_violations,
+    disclosures, patents, deadlines, licenses
 )
 
 
@@ -13,7 +14,7 @@ async def lifespan(app: FastAPI):
     yield
 
 
-app = FastAPI(title="Technology Transfer Cell Management System (TTC-MS)", lifespan=lifespan)
+app = FastAPI(title="Technology Transfer Cell Intellectual Property Management System (TTC-IPMS)", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -32,7 +33,15 @@ app.include_router(innovation_club.router)
 app.include_router(noticeboard.router)
 app.include_router(ipr_violations.router)
 
+# Register IPMS Routers
+app.include_router(disclosures.router)
+app.include_router(patents.router)
+app.include_router(deadlines.router)
+app.include_router(licenses.router)
+
 
 @app.get("/health")
 def health():
+    # reload trigger
     return {"status": "ok"}
+
