@@ -242,79 +242,83 @@ body {
   min-width: 420px;
   padding: 3.5rem;
   overflow: hidden;
-  background: linear-gradient(145deg, #0c0c14 0%, #0e1225 40%, #0a0f1e 100%);
+  /* Deep maroon/burgundy gradient */
+  background: linear-gradient(135deg, #2A000A 0%, #150005 50%, #0F0003 100%);
 }
 
 .auth-hero-panel--register {
-  background: linear-gradient(145deg, #0c1410 0%, #091e14 40%, #0a1e0f 100%);
+  background: linear-gradient(135deg, #1C0820 0%, #0D0310 50%, #050007 100%);
 }
 
 /* ── Animated Gradient Orbs ────────────────────────── */
 @keyframes orbDrift {
   0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(30px, -40px) scale(1.05); }
-  50% { transform: translate(-20px, 20px) scale(0.95); }
-  75% { transform: translate(15px, 35px) scale(1.02); }
+  25% { transform: translate(35px, -45px) scale(1.08); }
+  50% { transform: translate(-25px, 25px) scale(0.92); }
+  75% { transform: translate(20px, 40px) scale(1.04); }
 }
 
 .auth-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.5;
+  filter: blur(90px);
+  opacity: 0.45;
   pointer-events: none;
-  animation: orbDrift 12s ease-in-out infinite;
+  animation: orbDrift 14s ease-in-out infinite;
   will-change: transform;
 }
 
 .auth-orb--1 {
-  width: 340px;
-  height: 340px;
-  background: radial-gradient(circle, rgba(0, 113, 227, 0.45) 0%, transparent 70%);
-  top: 8%;
-  left: -5%;
+  width: 360px;
+  height: 360px;
+  /* Rich University Crimson */
+  background: radial-gradient(circle, rgba(142, 10, 33, 0.45) 0%, transparent 75%);
+  top: 6%;
+  left: -8%;
   animation-delay: 0s;
 }
 
 .auth-orb--2 {
-  width: 280px;
-  height: 280px;
-  background: radial-gradient(circle, rgba(142, 45, 226, 0.35) 0%, transparent 70%);
-  bottom: 15%;
-  right: -8%;
-  animation-delay: -3s;
+  width: 300px;
+  height: 300px;
+  /* Rich University Gold */
+  background: radial-gradient(circle, rgba(217, 155, 0, 0.22) 0%, transparent 75%);
+  bottom: 12%;
+  right: -5%;
+  animation-delay: -3.5s;
 }
 
 .auth-orb--3 {
-  width: 200px;
-  height: 200px;
-  background: radial-gradient(circle, rgba(52, 199, 89, 0.25) 0%, transparent 70%);
-  top: 55%;
-  left: 30%;
-  animation-delay: -6s;
+  width: 220px;
+  height: 220px;
+  /* Light amber/gold highlights */
+  background: radial-gradient(circle, rgba(242, 200, 75, 0.15) 0%, transparent 75%);
+  top: 50%;
+  left: 25%;
+  animation-delay: -7s;
 }
 
 .auth-orb--4 {
-  width: 160px;
-  height: 160px;
-  background: radial-gradient(circle, rgba(255, 149, 0, 0.2) 0%, transparent 70%);
-  top: 15%;
-  right: 20%;
-  animation-delay: -9s;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(124, 10, 33, 0.25) 0%, transparent 75%);
+  top: 12%;
+  right: 15%;
+  animation-delay: -10.5s;
 }
 
 .auth-hero-panel--register .auth-orb--1 {
-  background: radial-gradient(circle, rgba(52, 199, 89, 0.4) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(142, 45, 226, 0.35) 0%, transparent 75%);
 }
 .auth-hero-panel--register .auth-orb--2 {
-  background: radial-gradient(circle, rgba(0, 113, 227, 0.3) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(0, 113, 227, 0.25) 0%, transparent 75%);
 }
 
 /* Noise overlay for depth */
 .auth-noise {
   position: absolute;
   inset: 0;
-  opacity: 0.03;
+  opacity: 0.025;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   pointer-events: none;
 }
@@ -323,8 +327,8 @@ body {
 .auth-grid-overlay {
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(rgba(255,255,255,0.04) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-image: radial-gradient(rgba(217, 155, 0, 0.05) 1px, transparent 1px);
+  background-size: 30px 30px;
   pointer-events: none;
 }
 
@@ -424,9 +428,9 @@ body {
   gap: 4px;
   padding: 6px 14px;
   border-radius: 100px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.06);
-  color: rgba(255,255,255,0.55);
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(217, 155, 0, 0.15);
+  color: rgba(255,255,255,0.65);
   font-size: 0.75rem;
   font-weight: 500;
   backdrop-filter: blur(4px);
@@ -434,8 +438,9 @@ body {
 }
 
 .auth-pill:hover {
-  background: rgba(255,255,255,0.08);
-  color: rgba(255,255,255,0.75);
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(217, 155, 0, 0.4);
+  color: #FFFFFF;
 }
 
 /* Steps preview (register hero) */
@@ -474,9 +479,9 @@ body {
 }
 
 .auth-step-item--active .auth-step-number {
-  border-color: #34C759;
-  background: rgba(52,199,89,0.15);
-  color: #6EE7A0;
+  border-color: #D99B00;
+  background: rgba(217, 155, 0, 0.15);
+  color: #F2C84B;
 }
 
 .auth-step-line {
@@ -674,7 +679,7 @@ body {
 .auth-step-bar-fill {
   height: 100%;
   border-radius: 10px;
-  background: linear-gradient(90deg, #0071E3, #34C759);
+  background: linear-gradient(90deg, #7C0A21, #D99B00);
   transition: width 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -709,8 +714,23 @@ body {
   padding-bottom: 11px !important;
   border-radius: 12px !important;
   font-size: 0.82rem !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.01em;
+  font-weight: 750 !important;
+  letter-spacing: 0.02em;
+  background: linear-gradient(135deg, #7C0A21 0%, #5F091D 100%) !important;
+  color: white !important;
+  box-shadow: 0 4px 16px rgba(95, 9, 29, 0.22) !important;
+  border: none !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.auth-submit-btn:hover {
+  background: linear-gradient(135deg, #91102B 0%, #6E0D25 100%) !important;
+  box-shadow: 0 6px 22px rgba(95, 9, 29, 0.32) !important;
+  transform: translateY(-1.5px);
+}
+
+.auth-submit-btn:active {
+  transform: translateY(0) scale(0.98);
 }
 
 /* ── Divider ───────────────────────────────────────── */
@@ -759,14 +779,20 @@ body {
 }
 
 .auth-demo-btn:hover {
-  border-color: rgba(0,113,227,0.2);
-  background: var(--color-indigo-light);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px -4px rgba(0,113,227,0.12);
+  border-color: rgba(217, 155, 0, 0.28);
+  background: rgba(217, 155, 0, 0.05);
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 18px -4px rgba(217, 155, 0, 0.15);
 }
 
 .auth-demo-btn:active {
   transform: translateY(0) scale(0.98);
+}
+
+/* ── Focus rings (Auth overrides) ─────────────────── */
+.auth-fields .focus-glow:focus {
+  box-shadow: 0 0 0 4px rgba(217, 155, 0, 0.15), 0 0 0 1px rgba(217, 155, 0, 0.4);
+  border-color: #D99B00;
 }
 
 .auth-demo-icon {
@@ -1000,4 +1026,146 @@ body {
   background: linear-gradient(90deg, #0071E3 0%, #8E2DE2 25%, #4A00E0 50%, #FF9500 75%, #0071E3 100%);
   background-size: 200% auto;
   animation: shimmer 4s linear infinite;
+}
+
+/* ── Premium Dashboard Enhancements ──────────────── */
+.dashboard-banner-glow {
+  background: linear-gradient(135deg, #18181B 0%, #09090B 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.dashboard-banner-glow::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 149, 0, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+.dashboard-banner-glow::before {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: 20%;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 113, 227, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+  filter: blur(40px);
+}
+
+/* Glass-style Dashboard Widgets */
+.glass-widget {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(229, 229, 231, 0.7);
+  box-shadow: 0 8px 32px -6px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-widget:hover {
+  border-color: rgba(0, 113, 227, 0.25);
+  box-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.06);
+}
+
+/* Premium KPI Card Sizing & Details */
+.kpi-card-glow {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  border-left: 4px solid #7C0A21 !important;
+  background: linear-gradient(135deg, #FFFFFF 0%, rgba(124, 10, 33, 0.008) 100%) !important;
+}
+
+.kpi-card-glow:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -4px rgba(124, 10, 33, 0.08), 0 2px 4px rgba(0, 0, 0, 0.02);
+  border-left-color: #A8203B !important;
+}
+
+.heatmap-cell {
+  aspect-ratio: 1.2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(229, 229, 231, 0.5);
+  cursor: pointer;
+  position: relative;
+}
+
+.heatmap-cell:hover {
+  transform: scale(1.05);
+  z-index: 10;
+  box-shadow: 0 8px 24px -6px rgba(0, 0, 0, 0.12);
+}
+
+.heatmap-cell--low {
+  background: #FFFFFF;
+  color: #86868B;
+}
+
+.heatmap-cell--low:hover {
+  border-color: rgba(134, 134, 139, 0.3);
+}
+
+.heatmap-cell--mod {
+  background: rgba(0, 113, 227, 0.05);
+  color: #0071E3;
+  border-color: rgba(0, 113, 227, 0.08);
+}
+
+.heatmap-cell--mod:hover {
+  background: rgba(0, 113, 227, 0.08);
+  border-color: rgba(0, 113, 227, 0.2);
+}
+
+.heatmap-cell--high {
+  background: rgba(255, 149, 0, 0.06);
+  color: #FF9500;
+  border-color: rgba(255, 149, 0, 0.08);
+}
+
+.heatmap-cell--high:hover {
+  background: rgba(255, 149, 0, 0.1);
+  border-color: rgba(255, 149, 0, 0.2);
+}
+
+.heatmap-cell--crit {
+  background: rgba(255, 59, 48, 0.06);
+  color: #FF3B30;
+  border-color: rgba(255, 59, 48, 0.08);
+  animation: borderPulse 2s infinite ease-in-out;
+}
+
+.heatmap-cell--crit:hover {
+  background: rgba(255, 59, 48, 0.1);
+  border-color: rgba(255, 59, 48, 0.25);
+}
+
+@keyframes borderPulse {
+  0%, 100% { border-color: rgba(255, 59, 48, 0.15); }
+  50% { border-color: rgba(255, 59, 48, 0.4); }
+}
+
+/* Mini Clock Widget styling */
+.clock-widget-glow {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.8), 0 4px 16px rgba(0, 0, 0, 0.03);
 }

@@ -98,70 +98,70 @@ export default function DashboardPage() {
 
   return (
     <>
-      {/* Premium macOS Greeting Banner with Real-time Operating Watch */}
-      <div className="bg-gradient-to-br from-white via-white to-[#0071E3]/[0.02] border border-[#E5E5E7]/80 rounded-2xl p-6 mb-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 animate-scale-in relative overflow-hidden">
-        {/* Glow orb decoration */}
-        <div className="absolute right-0 top-0 w-24 h-24 rounded-full bg-gradient-to-br from-[#0071E3]/10 to-transparent blur-xl pointer-events-none select-none" />
+      {/* Premium Dark Glass Greeting Banner with Real-time Watch */}
+      <div className="dashboard-banner-glow rounded-2xl p-6 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6 animate-scale-in overflow-hidden">
+        {/* Glow accent bar */}
+        <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-amber via-indigo to-teal" />
         
-        <div className="flex-1">
-          <span className="text-[10px] font-bold text-[#0071E3] uppercase tracking-widest bg-[#0071E3]/5 px-2 py-0.5 rounded-md">
+        <div className="flex-1 z-10">
+          <span className="text-[9px] font-extrabold text-amber uppercase tracking-widest bg-amber/10 px-2.5 py-1 rounded-md border border-amber/10">
             {isAdmin ? 'Operational Console' : 'Inventor Portal'}
           </span>
-          <h2 className="text-xl font-bold text-[#1D1D1F] mt-2">
+          <h2 className="text-2xl font-extrabold text-white mt-3.5 tracking-tight leading-tight">
             {getGreeting()}, {user?.full_name || 'IP Manager'}
           </h2>
-          <p className="text-xs text-[#86868B] mt-0.5">
+          <p className="text-xs text-white/55 mt-1 max-w-xl font-medium leading-relaxed">
             {isAdmin 
-              ? 'Track upcoming due dates, disclosures, patent filings, and licensing royalty metrics.'
-              : 'Submit invention disclosures, monitor your technology patent portfolio, and track active industry research projects.'
+              ? 'Track university invention disclosures, patent applications, statutory deadlines, and technology transfer licensing royalty metrics.'
+              : 'Submit technology disclosures, monitor active patent applications, and review collaborative industry projects.'
             }
           </p>
 
           {/* Quick Action CTAs for Faculty Members */}
           {!isAdmin && (
-            <div className="flex flex-wrap gap-2 mt-4 border-t border-[#E5E5E7]/20 pt-3.5">
+            <div className="flex flex-wrap gap-2.5 mt-4 pt-4 border-t border-white/5">
               <button
                 onClick={() => navigate('/disclosures')}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo text-white text-[11px] font-bold shadow-sm hover:bg-indigo-dark transition-all active:scale-[0.98] cursor-pointer outline-none"
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-indigo text-white text-xs font-bold shadow-sm hover:bg-indigo-dark transition-all active:scale-[0.98] cursor-pointer outline-none hover:-translate-y-0.5"
               >
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
                 </svg>
                 Submit Disclosure
               </button>
               <button
                 onClick={() => navigate('/ipr-violations')}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-line bg-paper hover:bg-line text-[11px] font-bold text-ink/75 transition-all active:scale-[0.98] cursor-pointer outline-none"
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-bold text-white transition-all active:scale-[0.98] cursor-pointer outline-none hover:-translate-y-0.5"
               >
-                <svg className="w-3.5 h-3.5 text-[#FF3B30]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <svg className="w-4 h-4 text-rust" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
-                Report IPR Violation
+                Report Violation
               </button>
               <button
                 onClick={() => navigate('/innovation-club/applications')}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-line bg-paper hover:bg-line text-[11px] font-bold text-ink/75 transition-all active:scale-[0.98] cursor-pointer outline-none"
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-bold text-white transition-all active:scale-[0.98] cursor-pointer outline-none hover:-translate-y-0.5"
               >
-                <svg className="w-3.5 h-3.5 text-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <svg className="w-4 h-4 text-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
-                Club Application
+                Innovation Club Application
               </button>
             </div>
           )}
         </div>
         
         {/* Real-time Ticking Analog & Digital Watch Component */}
-        <div className="flex items-center gap-3 bg-white/70 backdrop-blur-md border border-[#E5E5E7]/60 p-2 rounded-xl shadow-3xs shrink-0 select-none z-10">
-          <div className="flex flex-col items-end leading-none">
-            <span className="text-[8px] font-bold text-[#86868B] uppercase tracking-wider">Local Time</span>
-            <span className="text-xs font-bold text-[#1D1D1F] mt-1.5 tabular-nums">
+        <div className="flex items-center gap-4 bg-white/10 border border-white/10 p-3 rounded-2xl shadow-inner shrink-0 select-none z-10 self-start md:self-auto">
+          <div className="flex flex-col items-end leading-none text-right">
+            <span className="text-[8px] font-extrabold text-white/40 uppercase tracking-widest">Local Time</span>
+            <span className="text-sm font-black text-white mt-2 tabular-nums tracking-wide">
               {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
             </span>
           </div>
-          <div className="w-8 h-8 rounded-full bg-[#F5F5F7] flex items-center justify-center shrink-0 border border-[#D2D2D7]/50 relative shadow-inner">
-            <svg className="w-6 h-6 text-[#1D1D1F]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2}>
-              <circle cx="12" cy="12" r="9" className="stroke-[#E5E5E7]" strokeWidth={1.5} />
+          <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center shrink-0 border border-white/15 relative shadow-inner">
+            <svg className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2}>
+              <circle cx="12" cy="12" r="9" className="stroke-white/10" strokeWidth={1.5} />
               {/* Hour hand */}
               <line 
                 x1="12" y1="12" x2="12" y2="7.5" 
@@ -169,7 +169,7 @@ export default function DashboardPage() {
                   transform: `rotate(${hourRotation}deg)`, 
                   transformOrigin: '12px 12px' 
                 }} 
-                className="stroke-[#1D1D1F]" 
+                className="stroke-white" 
               />
               {/* Minute hand */}
               <line 
@@ -178,7 +178,7 @@ export default function DashboardPage() {
                   transform: `rotate(${minuteRotation}deg)`, 
                   transformOrigin: '12px 12px' 
                 }} 
-                className="stroke-[#1D1D1F]" 
+                className="stroke-white" 
               />
               {/* Second hand */}
               <line 
@@ -187,10 +187,10 @@ export default function DashboardPage() {
                   transform: `rotate(${secondRotation}deg)`, 
                   transformOrigin: '12px 12px' 
                 }} 
-                className="stroke-[#FF3B30]" 
+                className="stroke-amber" 
                 strokeWidth="1"
               />
-              <circle cx="12" cy="12" r="1" className="fill-[#FF3B30] stroke-none" />
+              <circle cx="12" cy="12" r="1" className="fill-amber stroke-none" />
             </svg>
           </div>
         </div>
@@ -206,102 +206,145 @@ export default function DashboardPage() {
             {/* Stat Cards (Admin) */}
             <div className="grid grid-cols-2 md:grid-cols-5 gap-5 mb-8 stagger-children">
               {/* Filed Card */}
-              <div className="bg-gradient-to-br from-white to-[#0071E3]/[0.015] border border-line rounded-2xl p-5 shadow-2xs hover:border-[#0071E3]/35 hover:shadow-sm hover:shadow-[#0071E3]/[0.02] transition-all duration-200 hover:-translate-y-0.5">
-                <div className="flex items-center justify-between mb-3.5">
-                  <p className="text-[10px] font-bold text-ink/40 uppercase tracking-wider">Filed</p>
-                  <div className="w-8 h-8 rounded-xl bg-[#0071E3]/7 flex items-center justify-center text-[#0071E3] shadow-3xs">
+              <div className="kpi-card-glow kpi-card-glow--filed bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
+                <div className="flex items-center justify-between">
+                  <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">Filed Patents</p>
+                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] shadow-3xs shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
                 </div>
-                <h3 className="text-3xl font-extrabold text-ink leading-none"><AnimatedCounter value={stats.filed} /></h3>
-                <p className="text-[10px] text-ink/40 mt-2 font-semibold flex items-center gap-1">
-                  <span className="text-[#34C759]">↑</span> +6 this quarter
-                </p>
+                <div className="mt-1">
+                  <h3 className="text-3xl font-black text-ink leading-none"><AnimatedCounter value={stats.filed} /></h3>
+                </div>
+                <div className="space-y-1 mt-1">
+                  <div className="flex items-center justify-between text-[9px] font-extrabold text-ink/40 uppercase tracking-wide">
+                    <span>Q3 Target</span>
+                    <span className="text-[#7C0A21]">86%</span>
+                  </div>
+                  <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
+                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '86%' }} />
+                  </div>
+                </div>
               </div>
 
               {/* Granted Card */}
-              <div className="bg-gradient-to-br from-white to-[#34C759]/[0.015] border border-line rounded-2xl p-5 shadow-2xs hover:border-[#34C759]/35 hover:shadow-sm hover:shadow-[#34C759]/[0.02] transition-all duration-200 hover:-translate-y-0.5">
-                <div className="flex items-center justify-between mb-3.5">
-                  <p className="text-[10px] font-bold text-ink/40 uppercase tracking-wider">Granted</p>
-                  <div className="w-8 h-8 rounded-xl bg-[#34C759]/7 flex items-center justify-center text-[#34C759] shadow-3xs">
+              <div className="kpi-card-glow kpi-card-glow--granted bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
+                <div className="flex items-center justify-between">
+                  <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">Granted</p>
+                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] shadow-3xs shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5a2 2 0 10-2 2h2z" />
                     </svg>
                   </div>
                 </div>
-                <h3 className="text-3xl font-extrabold text-ink leading-none"><AnimatedCounter value={stats.granted} /></h3>
-                <p className="text-[10px] text-ink/40 mt-2 font-semibold">2 notices this month</p>
+                <div className="mt-1">
+                  <h3 className="text-3xl font-black text-ink leading-none"><AnimatedCounter value={stats.granted} /></h3>
+                </div>
+                <div className="space-y-1 mt-1">
+                  <div className="flex items-center justify-between text-[9px] font-extrabold text-ink/40 uppercase tracking-wide">
+                    <span>Approval Rate</span>
+                    <span className="text-[#7C0A21]">92%</span>
+                  </div>
+                  <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
+                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '92%' }} />
+                  </div>
+                </div>
               </div>
 
               {/* Pending Card */}
-              <div className="bg-gradient-to-br from-white to-[#FF9500]/[0.015] border border-line rounded-2xl p-5 shadow-2xs hover:border-[#FF9500]/35 hover:shadow-sm hover:shadow-[#FF9500]/[0.02] transition-all duration-200 hover:-translate-y-0.5">
-                <div className="flex items-center justify-between mb-3.5">
-                  <p className="text-[10px] font-bold text-ink/40 uppercase tracking-wider">Pending</p>
-                  <div className="w-8 h-8 rounded-xl bg-[#FF9500]/7 flex items-center justify-center text-[#FF9500] shadow-3xs">
+              <div className="kpi-card-glow kpi-card-glow--pending bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
+                <div className="flex items-center justify-between">
+                  <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">Pending</p>
+                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] shadow-3xs shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                   </div>
                 </div>
-                <h3 className="text-3xl font-extrabold text-ink leading-none"><AnimatedCounter value={stats.pending} /></h3>
-                <p className="text-[10px] text-ink/40 mt-2 font-semibold">Under internal review</p>
+                <div className="mt-1">
+                  <h3 className="text-3xl font-black text-ink leading-none"><AnimatedCounter value={stats.pending} /></h3>
+                </div>
+                <div className="space-y-1 mt-1">
+                  <div className="flex items-center justify-between text-[9px] font-extrabold text-ink/40 uppercase tracking-wide">
+                    <span>Review Backlog</span>
+                    <span className="text-[#7C0A21]">64%</span>
+                  </div>
+                  <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
+                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '64%' }} />
+                  </div>
+                </div>
               </div>
 
               {/* Renewals Card */}
-              <div className="bg-gradient-to-br from-white to-[#FF3B30]/[0.015] border border-line rounded-2xl p-5 shadow-2xs hover:border-[#FF3B30]/35 hover:shadow-sm hover:shadow-[#FF3B30]/[0.02] transition-all duration-200 hover:-translate-y-0.5">
-                <div className="flex items-center justify-between mb-3.5">
-                  <p className="text-[10px] font-bold text-ink/40 uppercase tracking-wider">Renewals Due</p>
-                  <div className="w-8 h-8 rounded-xl bg-[#FF3B30]/7 flex items-center justify-center text-[#FF3B30] shadow-3xs">
+              <div className="kpi-card-glow kpi-card-glow--renewals bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
+                <div className="flex items-center justify-between">
+                  <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">Renewals Due</p>
+                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] shadow-3xs shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
                 </div>
-                <h3 className="text-3xl font-extrabold text-ink leading-none"><AnimatedCounter value={stats.renewals} /></h3>
-                <p className="text-[10px] text-[#FF3B30] mt-2 font-bold bg-[#FF3B30]/5 px-2 py-0.5 rounded inline-block w-fit">3 high priority</p>
+                <div className="mt-1">
+                  <h3 className="text-3xl font-black text-ink leading-none"><AnimatedCounter value={stats.renewals} /></h3>
+                </div>
+                <div className="space-y-1 mt-1">
+                  <div className="flex items-center justify-between text-[9px] font-extrabold text-ink/40 uppercase tracking-wide">
+                    <span>Risk Ratio</span>
+                    <span className="text-[#7C0A21]">40%</span>
+                  </div>
+                  <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
+                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '40%' }} />
+                  </div>
+                </div>
               </div>
 
               {/* Revenue Card */}
-              <div className="bg-gradient-to-br from-white to-[#0071E3]/[0.015] border border-line rounded-2xl p-5 shadow-2xs hover:border-[#0071E3]/35 hover:shadow-sm hover:shadow-[#0071E3]/[0.02] transition-all duration-200 hover:-translate-y-0.5">
-                <div className="flex items-center justify-between mb-3.5">
-                  <p className="text-[10px] font-bold text-ink/40 uppercase tracking-wider">Licensing Rev</p>
-                  <div className="w-8 h-8 rounded-xl bg-[#0071E3]/7 flex items-center justify-center text-[#0071E3] font-semibold text-xs shadow-3xs">
+              <div className="kpi-card-glow kpi-card-glow--revenue bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
+                <div className="flex items-center justify-between">
+                  <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">Licensing Rev</p>
+                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] font-bold text-xs shadow-3xs shrink-0">
                     Rs
                   </div>
                 </div>
-                <h3 className="text-3xl font-extrabold text-ink leading-none">Rs. {(stats.revenue / 1000).toFixed(0)}k</h3>
-                <p className="text-[10px] text-ink/40 mt-2 font-semibold">YTD recognized</p>
+                <div className="mt-1">
+                  <h3 className="text-3xl font-black text-ink leading-none">Rs. {(stats.revenue / 1000).toFixed(0)}k</h3>
+                </div>
+                <div className="space-y-1 mt-1">
+                  <div className="flex items-center justify-between text-[9px] font-extrabold text-[#7C0A21] uppercase tracking-wide">
+                    <span>YTD Target</span>
+                    <span>78%</span>
+                  </div>
+                  <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
+                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '78%' }} />
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Pipeline & Heatmap */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
               {/* Prosecution Pipeline */}
-              <div className="lg:col-span-2 bg-surface border border-line rounded-2xl p-6 shadow-xs">
-                <div className="flex items-center justify-between mb-5">
-                  <div>
-                    <h3 className="text-xs font-bold text-ink uppercase tracking-wider">Prosecution Pipeline</h3>
-                    <p className="text-[11px] text-ink/45 mt-0.5">Volume by lifecycle stage across active disclosures & patents.</p>
-                  </div>
-                  <svg className="w-5 h-5 text-[#0071E3]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M7 12l3-3 3 3 4-4M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                  </svg>
+              <div className="lg:col-span-2 bg-surface border border-line rounded-2xl p-6 shadow-xs flex flex-col justify-between">
+                <div>
+                  <h3 className="text-xs font-bold text-ink uppercase tracking-wider">Prosecution Pipeline</h3>
+                  <p className="text-[11px] text-ink/45 mt-0.5">Volume by lifecycle stage across active disclosures & patents.</p>
                 </div>
                 
-                <div className="space-y-4 pt-2">
+                <div className="space-y-4 pt-5 flex-1 flex flex-col justify-center">
                   {[
-                    { label: 'Disclosure', value: disclosures.length || 24, max: 30, color: 'bg-[#0071E3]' },
-                    { label: 'Review', value: disclosures.filter(d => d.status === 'under_review').length || 17, max: 30, color: 'bg-[#34C759]' },
-                    { label: 'Drafting', value: patents.filter(p => p.status === 'drafting').length || 13, max: 30, color: 'bg-[#FF9500]' },
-                    { label: 'Filed', value: patents.filter(p => p.status === 'filed').length || 19, max: 30, color: 'bg-[#005BB5]' },
-                    { label: 'Granted', value: patents.filter(p => p.status === 'granted').length || 8, max: 30, color: 'bg-[#34C759]' },
+                    { label: 'Disclosure Received', value: disclosures.length || 24, max: 30, color: 'bg-[#0071E3]' },
+                    { label: 'Under Review', value: disclosures.filter(d => d.status === 'under_review').length || 17, max: 30, color: 'bg-[#34C759]' },
+                    { label: 'Drafting Application', value: patents.filter(p => p.status === 'drafting').length || 13, max: 30, color: 'bg-[#FF9500]' },
+                    { label: 'Filed Registry', value: patents.filter(p => p.status === 'filed').length || 19, max: 30, color: 'bg-[#005BB5]' },
+                    { label: 'Granted / Issued', value: patents.filter(p => p.status === 'granted').length || 8, max: 30, color: 'bg-[#34C759]' },
                   ].map((bar, i) => (
-                    <div key={i} className="space-y-1">
+                    <div key={i} className="space-y-1.5">
                       <div className="flex items-center justify-between text-xs font-bold text-ink">
                         <span>{bar.label}</span>
-                        <span className="tabular">{bar.value}</span>
+                        <span className="tabular text-indigo">{bar.value}</span>
                       </div>
                       <div className="h-2 w-full bg-paper rounded-full overflow-hidden">
                         <div
@@ -321,19 +364,19 @@ export default function DashboardPage() {
                   <p className="text-[11px] text-[#86868B] mt-0.5">Escalation density by urgency and compliance impact.</p>
                 </div>
                 
-                <div className="grid grid-cols-4 gap-3 my-4">
-                  <div className="heatmap-box heatmap-low shadow-3xs">Low</div>
-                  <div className="heatmap-box heatmap-low shadow-3xs">Low</div>
-                  <div className="heatmap-box heatmap-moderate shadow-3xs">Moderate</div>
-                  <div className="heatmap-box heatmap-high shadow-3xs">High</div>
-                  <div className="heatmap-box heatmap-low shadow-3xs">Low</div>
-                  <div className="heatmap-box heatmap-moderate shadow-3xs">Moderate</div>
-                  <div className="heatmap-box heatmap-high shadow-3xs">High</div>
-                  <div className="heatmap-box heatmap-high shadow-3xs">High</div>
-                  <div className="heatmap-box heatmap-low shadow-3xs">Low</div>
-                  <div className="heatmap-box heatmap-moderate shadow-3xs">Moderate</div>
-                  <div className="heatmap-box heatmap-moderate shadow-3xs">Moderate</div>
-                  <div className="heatmap-box heatmap-critical shadow-3xs">Critical</div>
+                <div className="grid grid-cols-4 gap-3 my-5">
+                  <div className="heatmap-cell heatmap-cell--low shadow-3xs" title="Low risk level">Low</div>
+                  <div className="heatmap-cell heatmap-cell--low shadow-3xs" title="Low risk level">Low</div>
+                  <div className="heatmap-cell heatmap-cell--mod shadow-3xs" title="Moderate risk level">Mod</div>
+                  <div className="heatmap-cell heatmap-cell--high shadow-3xs" title="High risk level">High</div>
+                  <div className="heatmap-cell heatmap-cell--low shadow-3xs" title="Low risk level">Low</div>
+                  <div className="heatmap-cell heatmap-cell--mod shadow-3xs" title="Moderate risk level">Mod</div>
+                  <div className="heatmap-cell heatmap-cell--high shadow-3xs" title="High risk level">High</div>
+                  <div className="heatmap-cell heatmap-cell--high shadow-3xs" title="High risk level">High</div>
+                  <div className="heatmap-cell heatmap-cell--low shadow-3xs" title="Low risk level">Low</div>
+                  <div className="heatmap-cell heatmap-cell--mod shadow-3xs" title="Moderate risk level">Mod</div>
+                  <div className="heatmap-cell heatmap-cell--mod shadow-3xs" title="Moderate risk level">Mod</div>
+                  <div className="heatmap-cell heatmap-cell--crit shadow-3xs" title="Critical action required">Crit</div>
                 </div>
 
                 <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-ink/35 border-t border-line pt-3">
@@ -359,13 +402,13 @@ export default function DashboardPage() {
                     { text: "Deadline escalation triggered for PAT-8841", tag: "Deadline", time: "11:40", color: "text-[#FF3B30] bg-[#FF3B30]/8" },
                     { text: "License LIC-233 milestone reminder sent", tag: "Commercialization", time: "12:25", color: "text-[#FF9500] bg-[#FF9500]/8" }
                   ].map((act, i) => (
-                    <div key={i} className="flex items-start justify-between gap-4 py-1 border-b border-line/30 last:border-0">
+                    <div key={i} className="flex items-start justify-between gap-4 py-1.5 border-b border-line/30 last:border-0">
                       <div className="flex gap-3">
                         <div className="mt-0.5">
                           <div className="w-1.5 h-1.5 rounded-full bg-indigo animate-pulse-dot" />
                         </div>
                         <div>
-                          <p className="text-xs font-semibold text-ink/80">{act.text}</p>
+                          <p className="text-xs font-semibold text-ink/80 leading-relaxed">{act.text}</p>
                           <span className={`inline-block text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-lg mt-1.5 ${act.color}`}>
                             {act.tag}
                           </span>
@@ -394,13 +437,13 @@ export default function DashboardPage() {
                     <div
                       key={i}
                       onClick={() => navigate(task.route)}
-                      className="flex items-center justify-between gap-4 p-3 border border-line rounded-xl hover:border-ink/20 hover:bg-paper/20 transition-all duration-150 cursor-pointer"
+                      className="flex items-center justify-between gap-4 p-3 border border-line rounded-xl hover:border-indigo hover:bg-indigo/[0.015] transition-all duration-150 cursor-pointer active:scale-[0.99]"
                     >
                       <div>
-                        <h4 className="text-xs font-bold text-ink hover:text-indigo transition-colors">{task.title}</h4>
+                        <h4 className="text-xs font-extrabold text-ink transition-colors">{task.title}</h4>
                         <p className="text-[10px] text-ink/40 font-semibold mt-0.5">{task.details} · {task.due}</p>
                       </div>
-                      <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${task.style}`}>
+                      <span className={`text-[9px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md ${task.style}`}>
                         {task.sev}
                       </span>
                     </div>
@@ -414,108 +457,160 @@ export default function DashboardPage() {
             {/* Stat Cards (Faculty / User) */}
             <div className="grid grid-cols-2 md:grid-cols-5 gap-5 mb-8 stagger-children">
               {/* My Disclosures Card */}
-              <div className="bg-gradient-to-br from-white to-[#0071E3]/[0.015] border border-line rounded-2xl p-5 shadow-2xs hover:border-[#0071E3]/35 hover:shadow-sm hover:shadow-[#0071E3]/[0.02] transition-all duration-200 hover:-translate-y-0.5">
-                <div className="flex items-center justify-between mb-3.5">
-                  <p className="text-[10px] font-bold text-ink/40 uppercase tracking-wider">My Disclosures</p>
-                  <div className="w-8 h-8 rounded-xl bg-[#0071E3]/7 flex items-center justify-center text-[#0071E3] shadow-3xs">
+              <div className="kpi-card-glow kpi-card-glow--filed bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
+                <div className="flex items-center justify-between">
+                  <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">My Disclosures</p>
+                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] shadow-3xs shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
                   </div>
                 </div>
-                <h3 className="text-3xl font-extrabold text-ink leading-none"><AnimatedCounter value={myDisclosures.length} /></h3>
-                <p className="text-[10px] text-ink/40 mt-2 font-semibold">Submitted cases</p>
+                <div className="mt-1">
+                  <h3 className="text-3xl font-black text-ink leading-none"><AnimatedCounter value={myDisclosures.length} /></h3>
+                </div>
+                <div className="space-y-1 mt-1">
+                  <div className="flex items-center justify-between text-[9px] font-extrabold text-ink/40 uppercase tracking-wide">
+                    <span>Status</span>
+                    <span className="text-[#7C0A21]">Submitted</span>
+                  </div>
+                  <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
+                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '100%' }} />
+                  </div>
+                </div>
               </div>
 
               {/* My Patents Card */}
-              <div className="bg-gradient-to-br from-white to-[#34C759]/[0.015] border border-line rounded-2xl p-5 shadow-2xs hover:border-[#34C759]/35 hover:shadow-sm hover:shadow-[#34C759]/[0.02] transition-all duration-200 hover:-translate-y-0.5">
-                <div className="flex items-center justify-between mb-3.5">
-                  <p className="text-[10px] font-bold text-ink/40 uppercase tracking-wider">My Patents</p>
-                  <div className="w-8 h-8 rounded-xl bg-[#34C759]/7 flex items-center justify-center text-[#34C759] shadow-3xs">
+              <div className="kpi-card-glow kpi-card-glow--granted bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
+                <div className="flex items-center justify-between">
+                  <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">My Patents</p>
+                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] shadow-3xs shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
                   </div>
                 </div>
-                <h3 className="text-3xl font-extrabold text-ink leading-none"><AnimatedCounter value={1} /></h3>
-                <p className="text-[10px] text-[#34C759] mt-2 font-bold bg-[#34C759]/5 px-2 py-0.5 rounded inline-block w-fit">PAT-8790 Active</p>
+                <div className="mt-1">
+                  <h3 className="text-3xl font-black text-ink leading-none"><AnimatedCounter value={1} /></h3>
+                </div>
+                <div className="space-y-1 mt-1">
+                  <div className="flex items-center justify-between text-[9px] font-extrabold text-[#7C0A21] uppercase tracking-wide">
+                    <span>PAT-8790</span>
+                    <span>Active</span>
+                  </div>
+                  <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
+                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '100%' }} />
+                  </div>
+                </div>
               </div>
 
               {/* My Projects Card */}
-              <div className="bg-gradient-to-br from-white to-[#FF9500]/[0.015] border border-line rounded-2xl p-5 shadow-2xs hover:border-[#FF9500]/35 hover:shadow-sm hover:shadow-[#FF9500]/[0.02] transition-all duration-200 hover:-translate-y-0.5">
-                <div className="flex items-center justify-between mb-3.5">
-                  <p className="text-[10px] font-bold text-ink/40 uppercase tracking-wider">My Projects</p>
-                  <div className="w-8 h-8 rounded-xl bg-[#FF9500]/7 flex items-center justify-center text-[#FF9500] shadow-3xs">
+              <div className="kpi-card-glow kpi-card-glow--pending bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
+                <div className="flex items-center justify-between">
+                  <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">My Projects</p>
+                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] shadow-3xs shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4.674 12.03a3 3 0 11-4.043-4.043L15.674 18.03z" />
                     </svg>
                   </div>
                 </div>
-                <h3 className="text-3xl font-extrabold text-ink leading-none"><AnimatedCounter value={myProjects.length} /></h3>
-                <p className="text-[10px] text-ink/40 mt-2 font-semibold">Industry funded</p>
+                <div className="mt-1">
+                  <h3 className="text-3xl font-black text-ink leading-none"><AnimatedCounter value={myProjects.length} /></h3>
+                </div>
+                <div className="space-y-1 mt-1">
+                  <div className="flex items-center justify-between text-[9px] font-extrabold text-ink/40 uppercase tracking-wide">
+                    <span>Industry Funded</span>
+                    <span className="text-[#7C0A21]">0 Active</span>
+                  </div>
+                  <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
+                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '0%' }} />
+                  </div>
+                </div>
               </div>
 
               {/* My Action Items Card */}
-              <div className="bg-gradient-to-br from-white to-[#FF3B30]/[0.015] border border-line rounded-2xl p-5 shadow-2xs hover:border-[#FF3B30]/35 hover:shadow-sm hover:shadow-[#FF3B30]/[0.02] transition-all duration-200 hover:-translate-y-0.5">
-                <div className="flex items-center justify-between mb-3.5">
-                  <p className="text-[10px] font-bold text-ink/40 uppercase tracking-wider">Action Items</p>
-                  <div className="w-8 h-8 rounded-xl bg-[#FF3B30]/7 flex items-center justify-center text-[#FF3B30] shadow-3xs">
+              <div className="kpi-card-glow kpi-card-glow--renewals bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
+                <div className="flex items-center justify-between">
+                  <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">Action Items</p>
+                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] shadow-3xs shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                   </div>
                 </div>
-                <h3 className="text-3xl font-extrabold text-ink leading-none"><AnimatedCounter value={myDeadlines.length} /></h3>
-                <p className="text-[10px] text-[#FF3B30] mt-2 font-bold bg-[#FF3B30]/5 px-2 py-0.5 rounded inline-block w-fit">Revision required</p>
+                <div className="mt-1">
+                  <h3 className="text-3xl font-black text-ink leading-none"><AnimatedCounter value={myDeadlines.length} /></h3>
+                </div>
+                <div className="space-y-1 mt-1">
+                  <div className="flex items-center justify-between text-[9px] font-extrabold text-[#7C0A21] uppercase tracking-wide">
+                    <span>Compliance</span>
+                    <span>Action Required</span>
+                  </div>
+                  <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
+                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '50%' }} />
+                  </div>
+                </div>
               </div>
 
               {/* My YTD Royalties Card */}
-              <div className="bg-gradient-to-br from-white to-[#0071E3]/[0.015] border border-line rounded-2xl p-5 shadow-2xs hover:border-[#0071E3]/35 hover:shadow-sm hover:shadow-[#0071E3]/[0.02] transition-all duration-200 hover:-translate-y-0.5">
-                <div className="flex items-center justify-between mb-3.5">
-                  <p className="text-[10px] font-bold text-ink/40 uppercase tracking-wider">Royalty Share</p>
-                  <div className="w-8 h-8 rounded-xl bg-[#0071E3]/7 flex items-center justify-center text-[#0071E3] font-semibold text-xs shadow-3xs">
+              <div className="kpi-card-glow kpi-card-glow--revenue bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
+                <div className="flex items-center justify-between">
+                  <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">Royalty Share</p>
+                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] font-bold text-xs shadow-3xs shrink-0">
                     Rs
                   </div>
                 </div>
-                <h3 className="text-3xl font-extrabold text-ink leading-none">Rs. {(myProjects.length * 17500).toLocaleString()}</h3>
-                <p className="text-[10px] text-ink/40 mt-2 font-semibold">YTD earned share</p>
+                <div className="mt-1">
+                  <h3 className="text-3xl font-black text-ink truncate leading-none">Rs. {(myProjects.length * 17500).toLocaleString()}</h3>
+                </div>
+                <div className="space-y-1 mt-1">
+                  <div className="flex items-center justify-between text-[9px] font-extrabold text-[#7C0A21] uppercase tracking-wide">
+                    <span>YTD Earnings</span>
+                    <span>Rs. 0</span>
+                  </div>
+                  <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
+                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '100%' }} />
+                  </div>
+                </div>
               </div>
             </div>
 
             {/* Inventions & Collaborations Portfolio */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
               {/* My Inventions list */}
-              <div className="lg:col-span-2 bg-surface border border-line rounded-2xl p-6 shadow-xs">
-                <div className="flex items-center justify-between mb-5">
-                  <div>
-                    <h3 className="text-xs font-bold text-ink uppercase tracking-wider">My Invention Disclosures</h3>
-                    <p className="text-[11px] text-ink/45 mt-0.5">Active patent drafts and invention declarations submitted to TTC.</p>
+              <div className="lg:col-span-2 bg-surface border border-line rounded-2xl p-6 shadow-xs flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <div>
+                      <h3 className="text-xs font-bold text-ink uppercase tracking-wider">My Invention Disclosures</h3>
+                      <p className="text-[11px] text-ink/45 mt-0.5">Active patent drafts and invention declarations submitted to TTC.</p>
+                    </div>
+                    <button onClick={() => navigate('/disclosures')} className="text-xs font-bold text-indigo hover:underline cursor-pointer">
+                      View All
+                    </button>
                   </div>
-                  <button onClick={() => navigate('/disclosures')} className="text-xs font-bold text-indigo hover:underline cursor-pointer">
-                    View All
-                  </button>
-                </div>
-                
-                <div className="space-y-4">
-                  {myDisclosures.length === 0 ? (
-                    <div className="py-8 text-center text-xs text-ink/40">No disclosures submitted yet.</div>
-                  ) : (
-                    myDisclosures.map((d, i) => (
-                      <div key={i} className="flex items-start justify-between gap-4 py-2.5 border-b border-line/30 last:border-0">
-                        <div>
-                          <h4 className="text-xs font-bold text-ink">{d.title}</h4>
-                          <p className="text-[10px] text-ink/40 mt-1 font-semibold">Dept: {d.department} · Reviewer: {d.reviewer || 'TTC Staff'}</p>
+                  
+                  <div className="space-y-3">
+                    {myDisclosures.length === 0 ? (
+                      <div className="py-8 text-center text-xs text-ink/40 font-medium">No disclosures submitted yet.</div>
+                    ) : (
+                      myDisclosures.map((d, i) => (
+                        <div key={i} className="flex items-center justify-between gap-4 p-3 border border-line rounded-xl hover:border-indigo hover:bg-indigo/[0.015] transition-all duration-150 cursor-pointer active:scale-[0.99]" onClick={() => navigate('/disclosures')}>
+                          <div className="min-w-0 flex-1">
+                            <h4 className="text-xs font-extrabold text-ink truncate">{d.title}</h4>
+                            <p className="text-[10px] text-ink/40 mt-1 font-semibold">Dept: {d.department} · Reviewer: {d.reviewer || 'TTC Staff'}</p>
+                          </div>
+                          <span className={`text-[9px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-lg text-center shrink-0 ${
+                            d.status === 'under_review' ? 'bg-[#0071E3]/5 text-[#0071E3] border border-[#0071E3]/10' :
+                            d.status === 'needs_revision' ? 'bg-[#FF9500]/5 text-[#FF9500] border border-[#FF9500]/10' :
+                            d.status === 'ready_for_filing' ? 'bg-[#34C759]/5 text-[#34C759] border border-[#34C759]/10' : 'bg-paper text-ink/45 border border-line'
+                          }`}>
+                            {d.status?.replace('_', ' ')}
+                          </span>
                         </div>
-                        <span className={`text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-lg text-center ${
-                          d.status === 'under_review' ? 'bg-[#0071E3]/5 text-[#0071E3]' :
-                          d.status === 'needs_revision' ? 'bg-[#FF9500]/5 text-[#FF9500]' :
-                          d.status === 'ready_for_filing' ? 'bg-[#34C759]/5 text-[#34C759]' : 'bg-paper text-ink/40'
-                        }`}>
-                          {d.status?.replace('_', ' ')}
-                        </span>
-                      </div>
-                    ))
-                  )}
+                      ))
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -526,26 +621,29 @@ export default function DashboardPage() {
                   <p className="text-[11px] text-[#86868B] mt-0.5">Reference guides and documents for university inventors.</p>
                 </div>
 
-                <div className="space-y-3 my-4">
-                  <a href="#" className="flex items-center gap-2.5 text-xs text-ink/80 hover:text-indigo transition-colors font-semibold">
-                    <span className="w-5 h-5 rounded-lg bg-[#FF3B30]/5 text-[#FF3B30] flex items-center justify-center text-[10px]">PDF</span>
-                    Colombo University IP Policy
-                  </a>
-                  <a href="#" className="flex items-center gap-2.5 text-xs text-ink/80 hover:text-indigo transition-colors font-semibold">
-                    <span className="w-5 h-5 rounded-lg bg-[#34C759]/5 text-[#34C759] flex items-center justify-center text-[10px]">DOC</span>
-                    TTC Disclosure Template
-                  </a>
-                  <a href="#" className="flex items-center gap-2.5 text-xs text-ink/80 hover:text-indigo transition-colors font-semibold">
-                    <span className="w-5 h-5 rounded-lg bg-[#0071E3]/5 text-[#0071E3] flex items-center justify-center text-[10px]">URL</span>
-                    PCT Patent Filing Flowchart
-                  </a>
-                  <a href="#" className="flex items-center gap-2.5 text-xs text-ink/80 hover:text-indigo transition-colors font-semibold">
-                    <span className="w-5 h-5 rounded-lg bg-amber/5 text-amber flex items-center justify-center text-[10px]">📞</span>
-                    TTC Staff Support Directory
-                  </a>
+                <div className="space-y-2.5 my-5">
+                  {[
+                    { title: "University of Ruhuna IP Policy", type: "PDF", desc: "1.4 MB File", color: "bg-rust/5 text-rust border-rust/10" },
+                    { title: "TTC Disclosure Template", type: "DOC", desc: "245 KB Document", color: "bg-teal/5 text-teal border-teal/10" },
+                    { title: "PCT Patent Filing Flowchart", type: "URL", desc: "External Link", color: "bg-indigo/5 text-indigo border-indigo/10" },
+                    { title: "TTC Staff Support Directory", type: "TEL", desc: "Phone List", color: "bg-amber/5 text-amber border-amber/10" }
+                  ].map((res, idx) => (
+                    <a key={idx} href="#" className="flex items-center justify-between p-2 rounded-xl hover:bg-paper/80 border border-transparent hover:border-line transition-all duration-150 group">
+                      <div className="flex items-center gap-3">
+                        <span className={`w-8 h-8 rounded-lg ${res.color} border flex items-center justify-center text-[9px] font-black tracking-wide shrink-0`}>
+                          {res.type}
+                        </span>
+                        <div>
+                          <p className="text-xs text-ink/80 group-hover:text-indigo transition-colors font-bold leading-tight">{res.title}</p>
+                          <p className="text-[9px] text-ink/35 font-medium mt-0.5">{res.desc}</p>
+                        </div>
+                      </div>
+                      <span className="text-ink/30 group-hover:text-indigo group-hover:translate-x-0.5 transition-all text-xs pr-1 font-bold">→</span>
+                    </a>
+                  ))}
                 </div>
                 
-                <div className="text-[9px] text-[#86868B] border-t border-[#E5E5E7]/55 pt-3 leading-relaxed">
+                <div className="text-[9px] text-[#86868B] border-t border-[#E5E5E7]/55 pt-3 leading-relaxed font-semibold">
                   Need help drafting claims? Contact the Technology Transfer Cell support desk.
                 </div>
               </div>
@@ -554,33 +652,43 @@ export default function DashboardPage() {
             {/* My Projects & My Action Items */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* My Industry Research Projects */}
-              <div className="bg-surface border border-line rounded-2xl p-6 shadow-xs">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-xs font-bold text-ink uppercase tracking-wider">My Industry Collaborations</h3>
-                  <button onClick={() => navigate('/projects')} className="text-xs font-bold text-indigo hover:underline cursor-pointer">
-                    View All
-                  </button>
-                </div>
+              <div className="bg-surface border border-line rounded-2xl p-6 shadow-xs flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-xs font-bold text-ink uppercase tracking-wider">My Industry Collaborations</h3>
+                    <button onClick={() => navigate('/projects')} className="text-xs font-bold text-indigo hover:underline cursor-pointer">
+                      View All
+                    </button>
+                  </div>
 
-                <div className="space-y-4">
-                  {myProjects.length === 0 ? (
-                    <div className="py-6 text-center text-xs text-ink/40">No active industry projects found.</div>
-                  ) : (
-                    myProjects.map((p, i) => (
-                      <div key={i} className="flex items-center justify-between gap-4 py-2 border-b border-line/30 last:border-0">
-                        <div>
-                          <h4 className="text-xs font-bold text-ink hover:text-indigo cursor-pointer transition-colors" onClick={() => navigate(`/projects/${p.id}`)}>{p.title}</h4>
-                          <p className="text-[10px] text-ink/40 mt-1 font-semibold font-medium">Partner: {p.industry_partner_name} · Budget: Rs. {p.budget?.toLocaleString()}</p>
+                  <div className="space-y-3">
+                    {myProjects.length === 0 ? (
+                      <div className="py-12 flex flex-col items-center justify-center text-center">
+                        <div className="w-12 h-12 rounded-full bg-paper flex items-center justify-center text-ink/30 mb-3 border border-line">
+                          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0a2 2 0 00-2 2H6a2 2 0 00-2-2m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5" />
+                          </svg>
                         </div>
-                        <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-lg ${
-                          p.status === 'ongoing' ? 'bg-[#34C759]/5 text-[#34C759]' :
-                          p.status === 'proposed' ? 'bg-[#0071E3]/5 text-[#0071E3]' : 'bg-paper text-ink/40'
-                        }`}>
-                          {p.status}
-                        </span>
+                        <p className="text-xs font-semibold text-ink/50">No Active Collaborations</p>
+                        <p className="text-[11px] text-ink/35 max-w-[220px] mt-1 leading-normal">Your active industry research and sponsored projects will appear here.</p>
                       </div>
-                    ))
-                  )}
+                    ) : (
+                      myProjects.map((p, i) => (
+                        <div key={i} className="flex items-center justify-between gap-4 p-3 border border-line rounded-xl hover:bg-paper/20 transition-all duration-150 animate-fade-in">
+                          <div>
+                            <h4 className="text-xs font-extrabold text-ink hover:text-indigo cursor-pointer transition-colors" onClick={() => navigate(`/projects/${p.id}`)}>{p.title}</h4>
+                            <p className="text-[10px] text-ink/40 mt-1 font-semibold font-medium">Partner: {p.industry_partner_name} · Budget: Rs. {p.budget?.toLocaleString()}</p>
+                          </div>
+                          <span className={`text-[9px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-lg ${
+                            p.status === 'ongoing' ? 'bg-[#34C759]/5 text-[#34C759] border border-[#34C759]/10' :
+                            p.status === 'proposed' ? 'bg-[#0071E3]/5 text-[#0071E3] border border-[#0071E3]/10' : 'bg-paper text-ink/40 border border-line'
+                          }`}>
+                            {p.status}
+                          </span>
+                        </div>
+                      ))
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -588,27 +696,35 @@ export default function DashboardPage() {
               <div className="bg-surface border border-line rounded-2xl p-6 shadow-xs">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-xs font-bold text-ink uppercase tracking-wider">My Urgent Actions</h3>
-                  <span className="bg-indigo-light text-[#0071E3] text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full">
+                  <span className="bg-indigo-light text-[#0071E3] text-[10px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full">
                     {myDeadlines.length} Open
                   </span>
                 </div>
 
                 <div className="space-y-3">
                   {myDeadlines.length === 0 ? (
-                    <div className="py-6 text-center text-xs text-ink/40">No urgent action items.</div>
+                    <div className="py-12 flex flex-col items-center justify-center text-center">
+                      <div className="w-12 h-12 rounded-full bg-paper flex items-center justify-center text-ink/30 mb-3 border border-line">
+                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <p className="text-xs font-semibold text-ink/50">No Pending Actions</p>
+                      <p className="text-[11px] text-ink/35 max-w-[200px] mt-1 leading-normal">You currently have no urgent action steps or deadline compliance items.</p>
+                    </div>
                   ) : (
                     myDeadlines.map((dl, i) => (
                       <div
                         key={i}
                         onClick={() => navigate('/deadlines')}
-                        className="flex items-center justify-between gap-4 p-3 border border-line rounded-xl hover:border-ink/20 hover:bg-paper/20 transition-all duration-150 cursor-pointer"
+                        className="flex items-center justify-between gap-4 p-3 border border-line rounded-xl hover:border-indigo hover:bg-indigo/[0.015] transition-all duration-150 cursor-pointer active:scale-[0.99]"
                       >
                         <div>
-                          <h4 className="text-xs font-bold text-ink hover:text-indigo transition-colors">{dl.title}</h4>
-                          <p className="text-[10px] text-ink/40 font-semibold mt-0.5">Assigned to: You · Due: {dl.due_date}</p>
+                          <h4 className="text-xs font-extrabold text-ink transition-colors">{dl.title}</h4>
+                          <p className="text-[10px] text-ink/40 font-semibold mt-0.5 font-medium">Assigned to: You · Due: {dl.due_date}</p>
                         </div>
-                        <span className={`text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md ${
-                          dl.severity === 'critical' || dl.severity === 'high' ? 'bg-[#FF3B30]/8 text-[#FF3B30]' : 'bg-paper text-ink/50'
+                        <span className={`text-[9px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md ${
+                          dl.severity === 'critical' || dl.severity === 'high' ? 'bg-[#FF3B30]/8 text-[#FF3B30] border border-[#FF3B30]/10' : 'bg-paper text-ink/50 border border-line'
                         }`}>
                           {dl.severity}
                         </span>
