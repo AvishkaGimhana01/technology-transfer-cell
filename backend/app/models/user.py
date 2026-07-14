@@ -32,3 +32,9 @@ class UserRead(UserBase):
 class UserLogin(SQLModel):
     email: str
     password: str
+
+
+class UserUpdate(SQLModel):
+    role: Optional[UserRole] = None
+    is_active: Optional[bool] = None
+

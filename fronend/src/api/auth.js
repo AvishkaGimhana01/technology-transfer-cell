@@ -24,3 +24,9 @@ export async function listUsers() {
   const { data } = await client.get('/users')
   return data
 }
+
+export async function updateUser(userId, payload) {
+  const { data } = await client.patch(`/users/${userId}`, payload)
+  return data
+}
+

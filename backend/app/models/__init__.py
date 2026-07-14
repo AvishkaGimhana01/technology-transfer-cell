@@ -1,4 +1,4 @@
-from app.models.user import User, UserCreate, UserRead, UserLogin
+from app.models.user import User, UserCreate, UserRead, UserLogin, UserUpdate
 from app.models.project import IndustryProject, ProjectCreate, ProjectRead, ProjectStatusUpdate
 from app.models.agreement import Agreement, AgreementCreate, AgreementRead
 from app.models.mou import Mou, MouCreate, MouRead
@@ -19,7 +19,7 @@ from app.models.deadline import Deadline, DeadlineCreate, DeadlineRead, Deadline
 from app.models.license import License, LicenseCreate, LicenseRead, LicenseStatusUpdate
 
 __all__ = [
-    "User", "UserCreate", "UserRead", "UserLogin",
+    "User", "UserCreate", "UserRead", "UserLogin", "UserUpdate",
     "IndustryProject", "ProjectCreate", "ProjectRead", "ProjectStatusUpdate",
     "Agreement", "AgreementCreate", "AgreementRead",
     "Mou", "MouCreate", "MouRead",
