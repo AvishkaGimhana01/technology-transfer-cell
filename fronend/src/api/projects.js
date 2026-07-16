@@ -9,6 +9,3 @@ export const createProject = (payload) => client.post('/projects', payload).then
 
 export const updateProjectStatus = (id, status) =>
   client.patch(`/projects/${id}/status`, { status }).then((r) => r.data)
-
-export const updateProject = (id, payload) => client.patch(`/projects/${id}`, payload).then((r) => r.data)
-export const deleteProject = (id) => client.delete(`/projects/${id}`).then((r) => r.data)

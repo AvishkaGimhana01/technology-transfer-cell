@@ -33,39 +33,3 @@ def get_agreement(agreement_id: int, session: Session = Depends(get_session)):
     if not agreement:
         raise HTTPException(status_code=404, detail="Agreement not found")
     return agreement
-
-
-@router.patch("/{agreement_id}", response_model=AgreementRead)
-def update_agreement(
-    agreement_id: int,
-    payload: AgreementCreate,
-    session: Session = Depends(get_session),
-    _: User = Depends(get_current_user),
-):
-    agreement = session.get(Agreement, agreement_id)
-    if not agreement:
-        raise HTTPException(status_code=404, detail="Agreement not found")
-    
-    payload_data = payload.dict(exclude_unset=True)
-    for key, value in payload_data.items():
-        setattr(agreement, key, value)
-    
-    session.add(agreement)
-    session.commit()
-    session.refresh(agreement)
-    return agreement
-
-
-@router.delete("/{agreement_id}")
-def delete_agreement(
-    agreement_id: int,
-    session: Session = Depends(get_session),
-    _: User = Depends(get_current_user),
-):
-    agreement = session.get(Agreement, agreement_id)
-    if not agreement:
-        raise HTTPException(status_code=404, detail="Agreement not found")
-    
-    session.delete(agreement)
-    session.commit()
-    return {"message": "Agreement deleted successfully"}

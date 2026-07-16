@@ -100,17 +100,16 @@ export default function DashboardPage() {
     <>
       {/* Premium Dark Glass Greeting Banner with Real-time Watch */}
       <div className="dashboard-banner-glow rounded-2xl p-6 mb-8 flex flex-col md:flex-row md:items-center justify-between gap-6 animate-scale-in overflow-hidden">
-        {/* Glow accent bar */}
-        <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-amber via-indigo to-teal" />
         
+
         <div className="flex-1 z-10">
-          <span className="text-[9px] font-extrabold text-amber uppercase tracking-widest bg-amber/10 px-2.5 py-1 rounded-md border border-amber/10">
+          <span className="text-[9px] font-extrabold text-indigo uppercase tracking-widest bg-indigo/5 px-2.5 py-1 rounded-full border border-indigo/10">
             {isAdmin ? 'Operational Console' : 'Inventor Portal'}
           </span>
-          <h2 className="text-2xl font-extrabold text-white mt-3.5 tracking-tight leading-tight">
+          <h2 className="text-2xl font-black text-ink mt-4 tracking-tight leading-tight">
             {getGreeting()}, {user?.full_name || 'IP Manager'}
           </h2>
-          <p className="text-xs text-white/55 mt-1 max-w-xl font-medium leading-relaxed">
+          <p className="text-xs text-gray mt-1.5 max-w-xl font-semibold leading-relaxed">
             {isAdmin 
               ? 'Track university invention disclosures, patent applications, statutory deadlines, and technology transfer licensing royalty metrics.'
               : 'Submit technology disclosures, monitor active patent applications, and review collaborative industry projects.'
@@ -119,30 +118,30 @@ export default function DashboardPage() {
 
           {/* Quick Action CTAs for Faculty Members */}
           {!isAdmin && (
-            <div className="flex flex-wrap gap-2.5 mt-4 pt-4 border-t border-white/5">
+            <div className="flex flex-wrap gap-2.5 mt-5 pt-4 border-t border-line">
               <button
                 onClick={() => navigate('/disclosures')}
-                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-indigo text-white text-xs font-bold shadow-sm hover:bg-indigo-dark transition-all active:scale-[0.98] cursor-pointer outline-none hover:-translate-y-0.5"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-b from-[#3B82F6] to-[#2563EB] text-white text-xs font-bold shadow-xs hover:from-[#2563EB] hover:to-[#1D4ED8] hover:-translate-y-0.5 transition-all duration-200 active:scale-[0.98] cursor-pointer outline-none"
               >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
                 </svg>
                 Submit Disclosure
               </button>
               <button
                 onClick={() => navigate('/ipr-violations')}
-                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-bold text-white transition-all active:scale-[0.98] cursor-pointer outline-none hover:-translate-y-0.5"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-xl border border-line bg-surface hover:bg-paper text-xs font-bold text-ink hover:-translate-y-0.5 transition-all duration-200 active:scale-[0.98] cursor-pointer outline-none shadow-3xs"
               >
-                <svg className="w-4 h-4 text-rust" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <svg className="w-3.5 h-3.5 text-rust" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
                 Report Violation
               </button>
               <button
                 onClick={() => navigate('/innovation-club/applications')}
-                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 text-xs font-bold text-white transition-all active:scale-[0.98] cursor-pointer outline-none hover:-translate-y-0.5"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-xl border border-line bg-surface hover:bg-paper text-xs font-bold text-ink hover:-translate-y-0.5 transition-all duration-200 active:scale-[0.98] cursor-pointer outline-none shadow-3xs"
               >
-                <svg className="w-4 h-4 text-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <svg className="w-3.5 h-3.5 text-amber" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
                 Innovation Club Application
@@ -152,16 +151,16 @@ export default function DashboardPage() {
         </div>
         
         {/* Real-time Ticking Analog & Digital Watch Component */}
-        <div className="flex items-center gap-4 bg-white/10 border border-white/10 p-3 rounded-2xl shadow-inner shrink-0 select-none z-10 self-start md:self-auto">
+        <div className="flex items-center gap-4 bg-surface border border-line p-3 rounded-2xl shadow-3xs shrink-0 select-none z-10 self-start md:self-auto">
           <div className="flex flex-col items-end leading-none text-right">
-            <span className="text-[8px] font-extrabold text-white/40 uppercase tracking-widest">Local Time</span>
-            <span className="text-sm font-black text-white mt-2 tabular-nums tracking-wide">
+            <span className="text-[8px] font-extrabold text-gray uppercase tracking-widest">Local Time</span>
+            <span className="text-sm font-black text-ink mt-2 tabular-nums tracking-wide">
               {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
             </span>
           </div>
-          <div className="w-9 h-9 rounded-full bg-white/10 flex items-center justify-center shrink-0 border border-white/15 relative shadow-inner">
-            <svg className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2}>
-              <circle cx="12" cy="12" r="9" className="stroke-white/10" strokeWidth={1.5} />
+          <div className="w-9 h-9 rounded-full bg-paper flex items-center justify-center shrink-0 border border-line relative shadow-3xs">
+            <svg className="w-7 h-7 text-indigo" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.2}>
+              <circle cx="12" cy="12" r="9" className="stroke-line/70" strokeWidth={1.5} />
               {/* Hour hand */}
               <line 
                 x1="12" y1="12" x2="12" y2="7.5" 
@@ -169,7 +168,7 @@ export default function DashboardPage() {
                   transform: `rotate(${hourRotation}deg)`, 
                   transformOrigin: '12px 12px' 
                 }} 
-                className="stroke-white" 
+                className="stroke-indigo" 
               />
               {/* Minute hand */}
               <line 
@@ -178,7 +177,7 @@ export default function DashboardPage() {
                   transform: `rotate(${minuteRotation}deg)`, 
                   transformOrigin: '12px 12px' 
                 }} 
-                className="stroke-white" 
+                className="stroke-indigo" 
               />
               {/* Second hand */}
               <line 
@@ -209,7 +208,7 @@ export default function DashboardPage() {
               <div className="kpi-card-glow kpi-card-glow--filed bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
                 <div className="flex items-center justify-between">
                   <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">Filed Patents</p>
-                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] shadow-3xs shrink-0">
+                  <div className="w-7 h-7 rounded-lg bg-indigo/5 flex items-center justify-center text-indigo shadow-3xs shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -221,10 +220,10 @@ export default function DashboardPage() {
                 <div className="space-y-1 mt-1">
                   <div className="flex items-center justify-between text-[9px] font-extrabold text-ink/40 uppercase tracking-wide">
                     <span>Q3 Target</span>
-                    <span className="text-[#7C0A21]">86%</span>
+                    <span className="text-indigo">86%</span>
                   </div>
                   <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
-                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '86%' }} />
+                    <div className="h-full bg-indigo rounded-full" style={{ width: '86%' }} />
                   </div>
                 </div>
               </div>
@@ -233,7 +232,7 @@ export default function DashboardPage() {
               <div className="kpi-card-glow kpi-card-glow--granted bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
                 <div className="flex items-center justify-between">
                   <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">Granted</p>
-                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] shadow-3xs shrink-0">
+                  <div className="w-7 h-7 rounded-lg bg-indigo/5 flex items-center justify-center text-indigo shadow-3xs shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5a2 2 0 10-2 2h2z" />
                     </svg>
@@ -245,10 +244,10 @@ export default function DashboardPage() {
                 <div className="space-y-1 mt-1">
                   <div className="flex items-center justify-between text-[9px] font-extrabold text-ink/40 uppercase tracking-wide">
                     <span>Approval Rate</span>
-                    <span className="text-[#7C0A21]">92%</span>
+                    <span className="text-indigo">92%</span>
                   </div>
                   <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
-                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '92%' }} />
+                    <div className="h-full bg-indigo rounded-full" style={{ width: '92%' }} />
                   </div>
                 </div>
               </div>
@@ -257,7 +256,7 @@ export default function DashboardPage() {
               <div className="kpi-card-glow kpi-card-glow--pending bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
                 <div className="flex items-center justify-between">
                   <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">Pending</p>
-                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] shadow-3xs shrink-0">
+                  <div className="w-7 h-7 rounded-lg bg-indigo/5 flex items-center justify-center text-indigo shadow-3xs shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
@@ -269,10 +268,10 @@ export default function DashboardPage() {
                 <div className="space-y-1 mt-1">
                   <div className="flex items-center justify-between text-[9px] font-extrabold text-ink/40 uppercase tracking-wide">
                     <span>Review Backlog</span>
-                    <span className="text-[#7C0A21]">64%</span>
+                    <span className="text-indigo">64%</span>
                   </div>
                   <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
-                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '64%' }} />
+                    <div className="h-full bg-indigo rounded-full" style={{ width: '64%' }} />
                   </div>
                 </div>
               </div>
@@ -281,7 +280,7 @@ export default function DashboardPage() {
               <div className="kpi-card-glow kpi-card-glow--renewals bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
                 <div className="flex items-center justify-between">
                   <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">Renewals Due</p>
-                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] shadow-3xs shrink-0">
+                  <div className="w-7 h-7 rounded-lg bg-indigo/5 flex items-center justify-center text-indigo shadow-3xs shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -293,10 +292,10 @@ export default function DashboardPage() {
                 <div className="space-y-1 mt-1">
                   <div className="flex items-center justify-between text-[9px] font-extrabold text-ink/40 uppercase tracking-wide">
                     <span>Risk Ratio</span>
-                    <span className="text-[#7C0A21]">40%</span>
+                    <span className="text-indigo">40%</span>
                   </div>
                   <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
-                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '40%' }} />
+                    <div className="h-full bg-indigo rounded-full" style={{ width: '40%' }} />
                   </div>
                 </div>
               </div>
@@ -305,7 +304,7 @@ export default function DashboardPage() {
               <div className="kpi-card-glow kpi-card-glow--revenue bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
                 <div className="flex items-center justify-between">
                   <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">Licensing Rev</p>
-                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] font-bold text-xs shadow-3xs shrink-0">
+                  <div className="w-7 h-7 rounded-lg bg-indigo/5 flex items-center justify-center text-indigo font-bold text-xs shadow-3xs shrink-0">
                     Rs
                   </div>
                 </div>
@@ -313,12 +312,12 @@ export default function DashboardPage() {
                   <h3 className="text-3xl font-black text-ink leading-none">Rs. {(stats.revenue / 1000).toFixed(0)}k</h3>
                 </div>
                 <div className="space-y-1 mt-1">
-                  <div className="flex items-center justify-between text-[9px] font-extrabold text-[#7C0A21] uppercase tracking-wide">
+                  <div className="flex items-center justify-between text-[9px] font-extrabold text-indigo uppercase tracking-wide">
                     <span>YTD Target</span>
                     <span>78%</span>
                   </div>
                   <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
-                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '78%' }} />
+                    <div className="h-full bg-indigo rounded-full" style={{ width: '78%' }} />
                   </div>
                 </div>
               </div>
@@ -335,11 +334,11 @@ export default function DashboardPage() {
                 
                 <div className="space-y-4 pt-5 flex-1 flex flex-col justify-center">
                   {[
-                    { label: 'Disclosure Received', value: disclosures.length || 24, max: 30, color: 'bg-[#0071E3]' },
-                    { label: 'Under Review', value: disclosures.filter(d => d.status === 'under_review').length || 17, max: 30, color: 'bg-[#34C759]' },
-                    { label: 'Drafting Application', value: patents.filter(p => p.status === 'drafting').length || 13, max: 30, color: 'bg-[#FF9500]' },
-                    { label: 'Filed Registry', value: patents.filter(p => p.status === 'filed').length || 19, max: 30, color: 'bg-[#005BB5]' },
-                    { label: 'Granted / Issued', value: patents.filter(p => p.status === 'granted').length || 8, max: 30, color: 'bg-[#34C759]' },
+                    { label: 'Disclosure Received', value: disclosures.length || 24, max: 30, color: 'bg-indigo' },
+                    { label: 'Under Review', value: disclosures.filter(d => d.status === 'under_review').length || 17, max: 30, color: 'bg-teal' },
+                    { label: 'Drafting Application', value: patents.filter(p => p.status === 'drafting').length || 13, max: 30, color: 'bg-amber' },
+                    { label: 'Filed Registry', value: patents.filter(p => p.status === 'filed').length || 19, max: 30, color: 'bg-indigo-dark' },
+                    { label: 'Granted / Issued', value: patents.filter(p => p.status === 'granted').length || 8, max: 30, color: 'bg-teal' },
                   ].map((bar, i) => (
                     <div key={i} className="space-y-1.5">
                       <div className="flex items-center justify-between text-xs font-bold text-ink">
@@ -397,10 +396,10 @@ export default function DashboardPage() {
                 
                 <div className="space-y-4">
                   {[
-                    { text: "Disclosure DISC-1024 routed for internal review", tag: "Workflow", time: "09:20", color: "text-[#0071E3] bg-[#0071E3]/8" },
-                    { text: "Document DOC-888 uploaded version 3", tag: "Document", time: "10:15", color: "text-[#34C759] bg-[#34C759]/8" },
-                    { text: "Deadline escalation triggered for PAT-8841", tag: "Deadline", time: "11:40", color: "text-[#FF3B30] bg-[#FF3B30]/8" },
-                    { text: "License LIC-233 milestone reminder sent", tag: "Commercialization", time: "12:25", color: "text-[#FF9500] bg-[#FF9500]/8" }
+                    { text: "Disclosure DISC-1024 routed for internal review", tag: "Workflow", time: "09:20", color: "text-[#0071E3] bg-indigo/8" },
+                    { text: "Document DOC-888 uploaded version 3", tag: "Document", time: "10:15", color: "text-[#34C759] bg-teal/8" },
+                    { text: "Deadline escalation triggered for PAT-8841", tag: "Deadline", time: "11:40", color: "text-rust bg-rust/8" },
+                    { text: "License LIC-233 milestone reminder sent", tag: "Commercialization", time: "12:25", color: "text-[#FF9500] bg-amber/8" }
                   ].map((act, i) => (
                     <div key={i} className="flex items-start justify-between gap-4 py-1.5 border-b border-line/30 last:border-0">
                       <div className="flex gap-3">
@@ -429,9 +428,9 @@ export default function DashboardPage() {
 
                 <div className="space-y-3">
                   {[
-                    { title: "Respond to office action for PAT-8841", details: "Aisha Bennett", due: "Due Today", sev: "Critical", style: "bg-[#FF3B30]/8 text-[#FF3B30]", route: "/patents" },
-                    { title: "Review revised inventor declarations", details: "You", due: "Due Tomorrow", sev: "Medium", style: "bg-[#FF9500]/8 text-[#FF9500]", route: "/disclosures" },
-                    { title: "Approve license milestone invoice", details: "You", due: "Due in 2 days", sev: "High", style: "bg-[#FF3B30]/8 text-[#FF3B30]", route: "/licenses" },
+                    { title: "Respond to office action for PAT-8841", details: "Aisha Bennett", due: "Due Today", sev: "Critical", style: "bg-rust/8 text-rust", route: "/patents" },
+                    { title: "Review revised inventor declarations", details: "You", due: "Due Tomorrow", sev: "Medium", style: "bg-amber/8 text-[#FF9500]", route: "/disclosures" },
+                    { title: "Approve license milestone invoice", details: "You", due: "Due in 2 days", sev: "High", style: "bg-rust/8 text-rust", route: "/licenses" },
                     { title: "Update saved report for quarterly board review", details: "Rohan Gupta", due: "Due in 4 days", sev: "Low", style: "bg-paper text-ink/50", route: "/reports" }
                   ].map((task, i) => (
                     <div
@@ -460,7 +459,7 @@ export default function DashboardPage() {
               <div className="kpi-card-glow kpi-card-glow--filed bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
                 <div className="flex items-center justify-between">
                   <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">My Disclosures</p>
-                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] shadow-3xs shrink-0">
+                  <div className="w-7 h-7 rounded-lg bg-indigo/5 flex items-center justify-center text-indigo shadow-3xs shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>
@@ -472,10 +471,10 @@ export default function DashboardPage() {
                 <div className="space-y-1 mt-1">
                   <div className="flex items-center justify-between text-[9px] font-extrabold text-ink/40 uppercase tracking-wide">
                     <span>Status</span>
-                    <span className="text-[#7C0A21]">Submitted</span>
+                    <span className="text-indigo">Submitted</span>
                   </div>
                   <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
-                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '100%' }} />
+                    <div className="h-full bg-indigo rounded-full" style={{ width: '100%' }} />
                   </div>
                 </div>
               </div>
@@ -484,7 +483,7 @@ export default function DashboardPage() {
               <div className="kpi-card-glow kpi-card-glow--granted bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
                 <div className="flex items-center justify-between">
                   <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">My Patents</p>
-                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] shadow-3xs shrink-0">
+                  <div className="w-7 h-7 rounded-lg bg-indigo/5 flex items-center justify-center text-indigo shadow-3xs shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
@@ -494,12 +493,12 @@ export default function DashboardPage() {
                   <h3 className="text-3xl font-black text-ink leading-none"><AnimatedCounter value={1} /></h3>
                 </div>
                 <div className="space-y-1 mt-1">
-                  <div className="flex items-center justify-between text-[9px] font-extrabold text-[#7C0A21] uppercase tracking-wide">
+                  <div className="flex items-center justify-between text-[9px] font-extrabold text-indigo uppercase tracking-wide">
                     <span>PAT-8790</span>
                     <span>Active</span>
                   </div>
                   <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
-                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '100%' }} />
+                    <div className="h-full bg-indigo rounded-full" style={{ width: '100%' }} />
                   </div>
                 </div>
               </div>
@@ -508,7 +507,7 @@ export default function DashboardPage() {
               <div className="kpi-card-glow kpi-card-glow--pending bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
                 <div className="flex items-center justify-between">
                   <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">My Projects</p>
-                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] shadow-3xs shrink-0">
+                  <div className="w-7 h-7 rounded-lg bg-indigo/5 flex items-center justify-center text-indigo shadow-3xs shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4.674 12.03a3 3 0 11-4.043-4.043L15.674 18.03z" />
                     </svg>
@@ -520,10 +519,10 @@ export default function DashboardPage() {
                 <div className="space-y-1 mt-1">
                   <div className="flex items-center justify-between text-[9px] font-extrabold text-ink/40 uppercase tracking-wide">
                     <span>Industry Funded</span>
-                    <span className="text-[#7C0A21]">0 Active</span>
+                    <span className="text-indigo">0 Active</span>
                   </div>
                   <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
-                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '0%' }} />
+                    <div className="h-full bg-indigo rounded-full" style={{ width: '0%' }} />
                   </div>
                 </div>
               </div>
@@ -532,7 +531,7 @@ export default function DashboardPage() {
               <div className="kpi-card-glow kpi-card-glow--renewals bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
                 <div className="flex items-center justify-between">
                   <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">Action Items</p>
-                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] shadow-3xs shrink-0">
+                  <div className="w-7 h-7 rounded-lg bg-indigo/5 flex items-center justify-center text-indigo shadow-3xs shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
@@ -542,12 +541,12 @@ export default function DashboardPage() {
                   <h3 className="text-3xl font-black text-ink leading-none"><AnimatedCounter value={myDeadlines.length} /></h3>
                 </div>
                 <div className="space-y-1 mt-1">
-                  <div className="flex items-center justify-between text-[9px] font-extrabold text-[#7C0A21] uppercase tracking-wide">
+                  <div className="flex items-center justify-between text-[9px] font-extrabold text-indigo uppercase tracking-wide">
                     <span>Compliance</span>
                     <span>Action Required</span>
                   </div>
                   <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
-                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '50%' }} />
+                    <div className="h-full bg-indigo rounded-full" style={{ width: '50%' }} />
                   </div>
                 </div>
               </div>
@@ -556,7 +555,7 @@ export default function DashboardPage() {
               <div className="kpi-card-glow kpi-card-glow--revenue bg-surface border border-line rounded-2xl p-5 shadow-xs transition-all duration-200 flex flex-col justify-between h-[135px]">
                 <div className="flex items-center justify-between">
                   <p className="text-[10px] font-extrabold text-ink/35 uppercase tracking-wider">Royalty Share</p>
-                  <div className="w-7 h-7 rounded-lg bg-[#7C0A21]/5 flex items-center justify-center text-[#7C0A21] font-bold text-xs shadow-3xs shrink-0">
+                  <div className="w-7 h-7 rounded-lg bg-indigo/5 flex items-center justify-center text-indigo font-bold text-xs shadow-3xs shrink-0">
                     Rs
                   </div>
                 </div>
@@ -564,12 +563,12 @@ export default function DashboardPage() {
                   <h3 className="text-3xl font-black text-ink truncate leading-none">Rs. {(myProjects.length * 17500).toLocaleString()}</h3>
                 </div>
                 <div className="space-y-1 mt-1">
-                  <div className="flex items-center justify-between text-[9px] font-extrabold text-[#7C0A21] uppercase tracking-wide">
+                  <div className="flex items-center justify-between text-[9px] font-extrabold text-indigo uppercase tracking-wide">
                     <span>YTD Earnings</span>
                     <span>Rs. 0</span>
                   </div>
                   <div className="h-1.5 w-full bg-paper rounded-full overflow-hidden">
-                    <div className="h-full bg-[#7C0A21] rounded-full" style={{ width: '100%' }} />
+                    <div className="h-full bg-indigo rounded-full" style={{ width: '100%' }} />
                   </div>
                 </div>
               </div>
@@ -601,9 +600,9 @@ export default function DashboardPage() {
                             <p className="text-[10px] text-ink/40 mt-1 font-semibold">Dept: {d.department} · Reviewer: {d.reviewer || 'TTC Staff'}</p>
                           </div>
                           <span className={`text-[9px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-lg text-center shrink-0 ${
-                            d.status === 'under_review' ? 'bg-[#0071E3]/5 text-[#0071E3] border border-[#0071E3]/10' :
-                            d.status === 'needs_revision' ? 'bg-[#FF9500]/5 text-[#FF9500] border border-[#FF9500]/10' :
-                            d.status === 'ready_for_filing' ? 'bg-[#34C759]/5 text-[#34C759] border border-[#34C759]/10' : 'bg-paper text-ink/45 border border-line'
+                            d.status === 'under_review' ? 'bg-indigo/5 text-[#0071E3] border border-[#0071E3]/10' :
+                            d.status === 'needs_revision' ? 'bg-amber/5 text-[#FF9500] border border-[#FF9500]/10' :
+                            d.status === 'ready_for_filing' ? 'bg-teal/5 text-[#34C759] border border-[#34C759]/10' : 'bg-paper text-ink/45 border border-line'
                           }`}>
                             {d.status?.replace('_', ' ')}
                           </span>
@@ -680,8 +679,8 @@ export default function DashboardPage() {
                             <p className="text-[10px] text-ink/40 mt-1 font-semibold font-medium">Partner: {p.industry_partner_name} · Budget: Rs. {p.budget?.toLocaleString()}</p>
                           </div>
                           <span className={`text-[9px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-lg ${
-                            p.status === 'ongoing' ? 'bg-[#34C759]/5 text-[#34C759] border border-[#34C759]/10' :
-                            p.status === 'proposed' ? 'bg-[#0071E3]/5 text-[#0071E3] border border-[#0071E3]/10' : 'bg-paper text-ink/40 border border-line'
+                            p.status === 'ongoing' ? 'bg-teal/5 text-[#34C759] border border-[#34C759]/10' :
+                            p.status === 'proposed' ? 'bg-indigo/5 text-[#0071E3] border border-[#0071E3]/10' : 'bg-paper text-ink/40 border border-line'
                           }`}>
                             {p.status}
                           </span>
@@ -724,7 +723,7 @@ export default function DashboardPage() {
                           <p className="text-[10px] text-ink/40 font-semibold mt-0.5 font-medium">Assigned to: You · Due: {dl.due_date}</p>
                         </div>
                         <span className={`text-[9px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md ${
-                          dl.severity === 'critical' || dl.severity === 'high' ? 'bg-[#FF3B30]/8 text-[#FF3B30] border border-[#FF3B30]/10' : 'bg-paper text-ink/50 border border-line'
+                          dl.severity === 'critical' || dl.severity === 'high' ? 'bg-rust/8 text-rust border border-[#FF3B30]/10' : 'bg-paper text-ink/50 border border-line'
                         }`}>
                           {dl.severity}
                         </span>

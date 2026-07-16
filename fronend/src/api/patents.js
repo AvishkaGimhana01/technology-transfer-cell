@@ -17,6 +17,3 @@ export const getPatentTimeline = (patentId) =>
 
 export const addPatentTimelineEvent = (patentId, payload) =>
   client.post(`/patents/${patentId}/timeline`, payload).then((r) => r.data)
-
-export const updatePatent = (id, payload) => client.patch(`/patents/${id}`, payload).then((r) => r.data)
-export const deletePatent = (id) => client.delete(`/patents/${id}`).then((r) => r.data)

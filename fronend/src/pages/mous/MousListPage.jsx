@@ -1,4 +1,5 @@
-import { listMous, createMou, updateMou, deleteMou } from '../../api/mous'
+import { useEffect, useState } from 'react'
+import { listMous, createMou } from '../../api/mous'
 import PageHeader from '../../components/ui/PageHeader'
 import DataTable from '../../components/ui/DataTable'
 import StatusDot from '../../components/ui/StatusDot'
@@ -15,8 +16,7 @@ export default function MousListPage() {
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
   const [submitting, setSubmitting] = useState(false)
-  const [editingMou, setEditingMou] = useState(null)
-  
+
   // Search, filter, and selection state
   const [search, setSearch] = useState('')
   const [statusFilter, setStatusFilter] = useState('all')
@@ -33,44 +33,18 @@ export default function MousListPage() {
     file_path: '',
   })
 
-  const handleEditClick = (mou) => {
-    setEditingMou(mou)
-    setForm({
-      title: mou.title,
-      partner_organization: mou.partner_organization,
-      signatory_internal: mou.signatory_internal || '',
-      signatory_external: mou.signatory_external || '',
-      status: mou.status,
-      sign_date: mou.sign_date || '',
-      expiry_date: mou.expiry_date || '',
-      file_path: mou.file_path || '',
-    })
-    setOpen(true)
-  }
-
-  const handleDeleteClick = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this MOU?')) return
-    try {
-      await deleteMou(id)
-      addToast('MOU deleted successfully!', 'success')
-      refresh()
-    } catch (err) {
-      addToast(err.response?.data?.detail || 'Failed to delete MOU.', 'error')
-    }
-  }
-
   const columns = [
     { key: 'title', label: 'MOU Title' },
     { key: 'partner_organization', label: 'Partner Organization' },
     { key: 'signatory_internal', label: 'Internal Signatory', render: (r) => r.signatory_internal || <span className="text-ink/25">—</span> },
     { key: 'signatory_external', label: 'External Signatory', render: (r) => r.signatory_external || <span className="text-ink/25">—</span> },
     { key: 'status', label: 'Status', render: (r) => <StatusDot status={r.status} /> },
-    { 
-      key: 'expiry_date', 
-      label: 'Expiry Date', 
+    {
+      key: 'expiry_date',
+      label: 'Expiry Date',
       render: (r) => {
         if (!r.expiry_date) return <span className="text-ink/25">—</span>
-        
+
         let expiringSoon = false
         let daysLeft = 0
         if (r.status === 'signed') {
@@ -80,7 +54,7 @@ export default function MousListPage() {
           daysLeft = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
           expiringSoon = daysLeft > 0 && daysLeft <= 30
         }
-        
+
         return (
           <div className="flex flex-col">
             <span>{r.expiry_date}</span>
@@ -92,32 +66,6 @@ export default function MousListPage() {
           </div>
         )
       }
-    },
-    {
-      key: 'actions',
-      label: 'Actions',
-      render: (r) => (
-        <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
-          <button
-            onClick={() => handleEditClick(r)}
-            className="p-1 hover:bg-indigo/10 text-indigo rounded-lg transition-colors cursor-pointer active:scale-90"
-            title="Edit MOU"
-          >
-            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-            </svg>
-          </button>
-          <button
-            onClick={() => handleDeleteClick(r.id)}
-            className="p-1 hover:bg-rust/10 text-rust rounded-lg transition-colors cursor-pointer active:scale-90"
-            title="Delete MOU"
-          >
-            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-            </svg>
-          </button>
-        </div>
-      ),
     },
   ]
 
@@ -136,7 +84,7 @@ export default function MousListPage() {
     refresh()
   }, [])
 
-  async function handleSubmit(e) {
+  async function handleCreate(e) {
     e.preventDefault()
     setSubmitting(true)
     const payload = {
@@ -148,19 +96,13 @@ export default function MousListPage() {
       file_path: form.file_path || null,
     }
     try {
-      if (editingMou) {
-        await updateMou(editingMou.id, payload)
-        addToast('MOU updated successfully!', 'success')
-      } else {
-        await createMou(payload)
-        addToast('MOU created successfully!', 'success')
-      }
+      await createMou(payload)
       setOpen(false)
-      setEditingMou(null)
       setForm({ title: '', partner_organization: '', signatory_internal: '', signatory_external: '', status: 'draft', sign_date: '', expiry_date: '', file_path: '' })
+      addToast('MOU created successfully!', 'success')
       refresh()
     } catch (err) {
-      addToast(err.response?.data?.detail || 'Failed to save MOU.', 'error')
+      addToast(err.response?.data?.detail || 'Failed to create MOU.', 'error')
     } finally {
       setSubmitting(false)
     }
@@ -174,7 +116,7 @@ export default function MousListPage() {
 
   // Filtered MOUs for search and status
   const filteredMous = mous.filter(m => {
-    const matchesSearch = 
+    const matchesSearch =
       m.title.toLowerCase().includes(search.toLowerCase()) ||
       m.partner_organization.toLowerCase().includes(search.toLowerCase())
     const matchesStatus = statusFilter === 'all' || m.status === statusFilter
@@ -200,7 +142,7 @@ export default function MousListPage() {
     ])
 
     const content = [headers.join(','), ...csvRows.map(e => e.map(val => `"${String(val).replace(/"/g, '""')}"`).join(','))].join('\n')
-    
+
     const blob = new Blob([content], { type: 'text/csv;charset=utf-8;' })
     const url = URL.createObjectURL(blob)
     const link = document.createElement("a")
@@ -222,17 +164,7 @@ export default function MousListPage() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
           </svg>
         }
-        action={
-          <Button
-            onClick={() => {
-              setEditingMou(null)
-              setForm({ title: '', partner_organization: '', signatory_internal: '', signatory_external: '', status: 'draft', sign_date: '', expiry_date: '', file_path: '' })
-              setOpen(true)
-            }}
-          >
-            + New MOU
-          </Button>
-        }
+        action={<Button onClick={() => setOpen(true)}>+ New MOU</Button>}
       />
 
       {/* KPI Stats Cards */}
@@ -331,17 +263,17 @@ export default function MousListPage() {
       </div>
 
       {/* Main Data Table */}
-      <DataTable 
-        columns={columns} 
-        rows={filteredMous} 
-        loading={loading} 
+      <DataTable
+        columns={columns}
+        rows={filteredMous}
+        loading={loading}
         onRowClick={(row) => setSelectedMou(row)}
-        emptyLabel="No MOUs found matching your search or filters." 
+        emptyLabel="No MOUs found matching your search or filters."
       />
 
-      {/* New/Edit MOU Modal */}
-      <Modal open={open} onClose={() => setOpen(false)} title={editingMou ? "Edit MOU Record" : "New MOU Record"}>
-        <form onSubmit={handleSubmit} className="space-y-4">
+      {/* New MOU Creation Modal */}
+      <Modal open={open} onClose={() => setOpen(false)} title="New MOU Record">
+        <form onSubmit={handleCreate} className="space-y-4">
           <Input label="MOU Title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required />
           <Input label="Partner Organization" value={form.partner_organization} onChange={(e) => setForm({ ...form, partner_organization: e.target.value })} required />
           <div className="grid grid-cols-2 gap-4">
@@ -361,9 +293,7 @@ export default function MousListPage() {
             <Input label="Sign Date" type="date" value={form.sign_date} onChange={(e) => setForm({ ...form, sign_date: e.target.value })} />
             <Input label="Expiry Date" type="date" value={form.expiry_date} onChange={(e) => setForm({ ...form, expiry_date: e.target.value })} />
           </div>
-          <Button type="submit" className="w-full rounded-xl" loading={submitting}>
-            {editingMou ? "Update MOU" : "Create MOU"}
-          </Button>
+          <Button type="submit" className="w-full rounded-xl" loading={submitting}>Create MOU</Button>
         </form>
       </Modal>
 
@@ -380,7 +310,7 @@ export default function MousListPage() {
             <div className="border-t border-b border-line py-4">
               <p className="text-xs uppercase tracking-wider font-semibold text-ink/40 mb-3">Signature Lifecycle Progress</p>
               <SignProgressTimeline status={selectedMou.status} />
-              
+
               {selectedMou.status === 'expired' && (
                 <div className="mt-3 bg-rust/5 border border-rust/10 text-rust text-xs rounded-lg p-2.5 flex items-center gap-2">
                   <span>⚠️</span>
@@ -409,8 +339,8 @@ export default function MousListPage() {
                   {selectedMou.expiry_date || 'No expiry date set'}
                   {selectedMou.status === 'signed' && selectedMou.expiry_date && (
                     <span className="block text-[11px] text-ink/45 font-medium mt-0.5">
-                      ({Math.ceil((new Date(selectedMou.expiry_date) - new Date()) / (1000 * 60 * 60 * 24)) > 0 
-                        ? `${Math.ceil((new Date(selectedMou.expiry_date) - new Date()) / (1000 * 60 * 60 * 24))} days remaining` 
+                      ({Math.ceil((new Date(selectedMou.expiry_date) - new Date()) / (1000 * 60 * 60 * 24)) > 0
+                        ? `${Math.ceil((new Date(selectedMou.expiry_date) - new Date()) / (1000 * 60 * 60 * 24))} days remaining`
                         : 'Expired'}
                       )
                     </span>
@@ -456,14 +386,14 @@ function SignProgressTimeline({ status }) {
     { key: 'pending_signature', label: 'Pending Signature' },
     { key: 'signed', label: 'Signed' }
   ]
-  
+
   const getStepState = (stepKey) => {
     if (status === 'expired') return 'expired'
-    
+
     const order = ['draft', 'pending_signature', 'signed']
     const currentIndex = order.indexOf(status)
     const stepIndex = order.indexOf(stepKey)
-    
+
     if (currentIndex >= stepIndex) return 'completed'
     return 'pending'
   }
@@ -473,12 +403,12 @@ function SignProgressTimeline({ status }) {
       <div className="flex items-center justify-between relative">
         {/* Connector Line */}
         <div className="absolute top-4 left-0 right-0 h-0.5 bg-line -translate-y-1/2 z-0" />
-        
+
         {steps.map((step, idx) => {
           const state = getStepState(step.key)
           let circleClass = 'bg-line text-ink/40 border-2 border-line'
           let textClass = 'text-ink/40 font-semibold'
-          
+
           if (state === 'completed') {
             circleClass = 'bg-teal border-teal text-white ring-4 ring-teal/10'
             textClass = 'text-teal font-bold'
@@ -489,7 +419,7 @@ function SignProgressTimeline({ status }) {
             circleClass = 'bg-surface border-indigo text-indigo font-bold ring-4 ring-indigo/10'
             textClass = 'text-indigo font-bold'
           }
-          
+
           return (
             <div key={step.key} className="flex flex-col items-center z-10 relative bg-surface px-3">
               <div className={`w-8 h-8 rounded-full flex items-center justify-center text-xs transition-all duration-300 ${circleClass}`}>

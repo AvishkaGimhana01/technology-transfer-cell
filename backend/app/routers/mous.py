@@ -33,39 +33,3 @@ def get_mou(mou_id: int, session: Session = Depends(get_session)):
     if not mou:
         raise HTTPException(status_code=404, detail="MOU not found")
     return mou
-
-
-@router.patch("/{mou_id}", response_model=MouRead)
-def update_mou(
-    mou_id: int,
-    payload: MouCreate,
-    session: Session = Depends(get_session),
-    _: User = Depends(get_current_user),
-):
-    mou = session.get(Mou, mou_id)
-    if not mou:
-        raise HTTPException(status_code=404, detail="MOU not found")
-    
-    payload_data = payload.dict(exclude_unset=True)
-    for key, value in payload_data.items():
-        setattr(mou, key, value)
-    
-    session.add(mou)
-    session.commit()
-    session.refresh(mou)
-    return mou
-
-
-@router.delete("/{mou_id}")
-def delete_mou(
-    mou_id: int,
-    session: Session = Depends(get_session),
-    _: User = Depends(get_current_user),
-):
-    mou = session.get(Mou, mou_id)
-    if not mou:
-        raise HTTPException(status_code=404, detail="MOU not found")
-    
-    session.delete(mou)
-    session.commit()
-    return {"message": "MOU deleted successfully"}

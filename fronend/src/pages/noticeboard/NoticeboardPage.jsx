@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { listPosts, createPost, updatePost, deletePost } from '../../api/noticeboard'
+import { listPosts, createPost } from '../../api/noticeboard'
 import { useAuth } from '../../auth/AuthContext'
 import PageHeader from '../../components/ui/PageHeader'
 import Button from '../../components/ui/Button'
@@ -23,7 +23,6 @@ export default function NoticeboardPage() {
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
   const [submitting, setSubmitting] = useState(false)
-  const [editingPost, setEditingPost] = useState(null)
   const [form, setForm] = useState({
     title: '',
     content: '',
@@ -46,51 +45,23 @@ export default function NoticeboardPage() {
     refresh()
   }, [])
 
-  const handleEditClick = (post) => {
-    setEditingPost(post)
-    setForm({
-      title: post.title,
-      content: post.content,
-      category: post.category || 'General',
-      expiry_date: post.expiry_date || '',
-    })
-    setOpen(true)
-  }
-
-  const handleDeleteClick = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this announcement?')) return
-    try {
-      await deletePost(id)
-      addToast('Announcement deleted successfully!', 'success')
-      refresh()
-    } catch (err) {
-      addToast(err.response?.data?.detail || 'Failed to delete post.', 'error')
-    }
-  }
-
-  async function handleSubmit(e) {
+  async function handleCreate(e) {
     e.preventDefault()
     setSubmitting(true)
     const payload = {
       ...form,
       is_published: true,
-      publish_date: editingPost ? editingPost.publish_date : new Date().toISOString().split('T')[0],
+      publish_date: new Date().toISOString().split('T')[0],
       expiry_date: form.expiry_date || null,
     }
     try {
-      if (editingPost) {
-        await updatePost(editingPost.id, payload)
-        addToast('Announcement updated successfully!', 'success')
-      } else {
-        await createPost(payload)
-        addToast('Announcement published!', 'success')
-      }
+      await createPost(payload)
       setOpen(false)
-      setEditingPost(null)
       setForm({ title: '', content: '', category: 'General', expiry_date: '' })
+      addToast('Announcement published!', 'success')
       refresh()
     } catch (err) {
-      addToast(err.response?.data?.detail || 'Failed to save post.', 'error')
+      addToast(err.response?.data?.detail || 'Failed to publish post.', 'error')
     } finally {
       setSubmitting(false)
     }
@@ -108,19 +79,7 @@ export default function NoticeboardPage() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
           </svg>
         }
-        action={
-          canPost ? (
-            <Button
-              onClick={() => {
-                setEditingPost(null)
-                setForm({ title: '', content: '', category: 'General', expiry_date: '' })
-                setOpen(true)
-              }}
-            >
-              + New Post
-            </Button>
-          ) : null
-        }
+        action={canPost ? <Button onClick={() => setOpen(true)}>+ New Post</Button> : null}
       />
 
       {loading ? (
@@ -146,33 +105,9 @@ export default function NoticeboardPage() {
                   <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg ${CATEGORY_COLORS[post.category] || 'bg-paper text-ink/50'}`}>
                     {post.category || 'General'}
                   </span>
-                  <div className="flex items-center gap-2">
-                    <span className="text-[10px] text-ink/35 tabular font-medium">
-                      {post.publish_date || new Date(post.created_at).toLocaleDateString()}
-                    </span>
-                    {canPost && (
-                      <div className="flex items-center gap-1 border-l border-line pl-2 ml-1">
-                        <button
-                          onClick={() => handleEditClick(post)}
-                          className="p-1 text-indigo hover:bg-indigo/10 rounded transition-colors cursor-pointer"
-                          title="Edit Post"
-                        >
-                          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                          </svg>
-                        </button>
-                        <button
-                          onClick={() => handleDeleteClick(post.id)}
-                          className="p-1 text-rust hover:bg-rust/10 rounded transition-colors cursor-pointer"
-                          title="Delete Post"
-                        >
-                          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                          </svg>
-                        </button>
-                      </div>
-                    )}
-                  </div>
+                  <span className="text-[10px] text-ink/35 tabular font-medium">
+                    {post.publish_date || new Date(post.created_at).toLocaleDateString()}
+                  </span>
                 </div>
                 <h3 className="text-sm font-bold text-ink mb-2 leading-snug">{post.title}</h3>
                 <p className="text-xs text-ink/60 whitespace-pre-wrap leading-relaxed">
@@ -193,8 +128,8 @@ export default function NoticeboardPage() {
         </div>
       )}
 
-      <Modal open={open} onClose={() => setOpen(false)} title={editingPost ? "Edit Announcement" : "New Announcement"}>
-        <form onSubmit={handleSubmit} className="space-y-4">
+      <Modal open={open} onClose={() => setOpen(false)} title="New Announcement">
+        <form onSubmit={handleCreate} className="space-y-4">
           <Input label="Announcement Title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required />
           <div className="grid grid-cols-2 gap-4">
             <Select label="Category" value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} required>
@@ -215,9 +150,7 @@ export default function NoticeboardPage() {
               required
             />
           </label>
-          <Button type="submit" className="w-full" loading={submitting}>
-            {editingPost ? "Update Announcement" : "Publish Post"}
-          </Button>
+          <Button type="submit" className="w-full" loading={submitting}>Publish Post</Button>
         </form>
       </Modal>
     </>
