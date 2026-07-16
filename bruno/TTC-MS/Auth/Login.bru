@@ -4,7 +4,7 @@ meta {
   seq: 2
 }
 
-post {
+get {
   url: {{baseUrl}}/auth/login
   body: formUrlEncoded
   auth: none
@@ -13,6 +13,10 @@ post {
 body:form-urlencoded {
   username: admin@ttc.lk
   password: admin123
+}
+
+vars:pre-request {
+  baseUrl: http://localhost:8000
 }
 
 script:post-response {

@@ -73,13 +73,6 @@ export default function LoginPage() {
             Bridging academic innovation with industry impact. Manage disclosures, patents, licenses & research partnerships — all in one place.
           </p>
 
-          {/* Feature pills */}
-          <div className="auth-feature-pills">
-            <span className="auth-pill">🔬 Disclosures</span>
-            <span className="auth-pill">📋 Patents</span>
-            <span className="auth-pill">🤝 Licenses</span>
-            <span className="auth-pill">📊 Analytics</span>
-          </div>
         </div>
 
         {/* Bottom attribution */}

@@ -27,3 +27,39 @@ def create_post(
     session.commit()
     session.refresh(post)
     return post
+
+
+@router.patch("/{post_id}", response_model=NoticeboardPostRead)
+def update_post(
+    post_id: int,
+    payload: NoticeboardPostCreate,
+    session: Session = Depends(get_session),
+    _: User = Depends(get_current_user),
+):
+    post = session.get(NoticeboardPost, post_id)
+    if not post:
+        raise HTTPException(status_code=404, detail="Post not found")
+    
+    payload_data = payload.dict(exclude_unset=True)
+    for key, value in payload_data.items():
+        setattr(post, key, value)
+    
+    session.add(post)
+    session.commit()
+    session.refresh(post)
+    return post
+
+
+@router.delete("/{post_id}")
+def delete_post(
+    post_id: int,
+    session: Session = Depends(get_session),
+    _: User = Depends(get_current_user),
+):
+    post = session.get(NoticeboardPost, post_id)
+    if not post:
+        raise HTTPException(status_code=404, detail="Post not found")
+    
+    session.delete(post)
+    session.commit()
+    return {"message": "Post deleted successfully"}

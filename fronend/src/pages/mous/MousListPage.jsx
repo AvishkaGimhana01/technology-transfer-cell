@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import { listMous, createMou } from '../../api/mous'
+import { listMous, createMou, updateMou, deleteMou } from '../../api/mous'
 import PageHeader from '../../components/ui/PageHeader'
 import DataTable from '../../components/ui/DataTable'
 import StatusDot from '../../components/ui/StatusDot'
@@ -16,6 +15,7 @@ export default function MousListPage() {
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [editingMou, setEditingMou] = useState(null)
   
   // Search, filter, and selection state
   const [search, setSearch] = useState('')
@@ -32,6 +32,32 @@ export default function MousListPage() {
     expiry_date: '',
     file_path: '',
   })
+
+  const handleEditClick = (mou) => {
+    setEditingMou(mou)
+    setForm({
+      title: mou.title,
+      partner_organization: mou.partner_organization,
+      signatory_internal: mou.signatory_internal || '',
+      signatory_external: mou.signatory_external || '',
+      status: mou.status,
+      sign_date: mou.sign_date || '',
+      expiry_date: mou.expiry_date || '',
+      file_path: mou.file_path || '',
+    })
+    setOpen(true)
+  }
+
+  const handleDeleteClick = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this MOU?')) return
+    try {
+      await deleteMou(id)
+      addToast('MOU deleted successfully!', 'success')
+      refresh()
+    } catch (err) {
+      addToast(err.response?.data?.detail || 'Failed to delete MOU.', 'error')
+    }
+  }
 
   const columns = [
     { key: 'title', label: 'MOU Title' },
@@ -67,6 +93,32 @@ export default function MousListPage() {
         )
       }
     },
+    {
+      key: 'actions',
+      label: 'Actions',
+      render: (r) => (
+        <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
+          <button
+            onClick={() => handleEditClick(r)}
+            className="p-1 hover:bg-indigo/10 text-indigo rounded-lg transition-colors cursor-pointer active:scale-90"
+            title="Edit MOU"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+          </button>
+          <button
+            onClick={() => handleDeleteClick(r.id)}
+            className="p-1 hover:bg-rust/10 text-rust rounded-lg transition-colors cursor-pointer active:scale-90"
+            title="Delete MOU"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </button>
+        </div>
+      ),
+    },
   ]
 
   async function refresh() {
@@ -84,7 +136,7 @@ export default function MousListPage() {
     refresh()
   }, [])
 
-  async function handleCreate(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
     setSubmitting(true)
     const payload = {
@@ -96,13 +148,19 @@ export default function MousListPage() {
       file_path: form.file_path || null,
     }
     try {
-      await createMou(payload)
+      if (editingMou) {
+        await updateMou(editingMou.id, payload)
+        addToast('MOU updated successfully!', 'success')
+      } else {
+        await createMou(payload)
+        addToast('MOU created successfully!', 'success')
+      }
       setOpen(false)
+      setEditingMou(null)
       setForm({ title: '', partner_organization: '', signatory_internal: '', signatory_external: '', status: 'draft', sign_date: '', expiry_date: '', file_path: '' })
-      addToast('MOU created successfully!', 'success')
       refresh()
     } catch (err) {
-      addToast(err.response?.data?.detail || 'Failed to create MOU.', 'error')
+      addToast(err.response?.data?.detail || 'Failed to save MOU.', 'error')
     } finally {
       setSubmitting(false)
     }
@@ -164,7 +222,17 @@ export default function MousListPage() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
           </svg>
         }
-        action={<Button onClick={() => setOpen(true)}>+ New MOU</Button>}
+        action={
+          <Button
+            onClick={() => {
+              setEditingMou(null)
+              setForm({ title: '', partner_organization: '', signatory_internal: '', signatory_external: '', status: 'draft', sign_date: '', expiry_date: '', file_path: '' })
+              setOpen(true)
+            }}
+          >
+            + New MOU
+          </Button>
+        }
       />
 
       {/* KPI Stats Cards */}
@@ -271,9 +339,9 @@ export default function MousListPage() {
         emptyLabel="No MOUs found matching your search or filters." 
       />
 
-      {/* New MOU Creation Modal */}
-      <Modal open={open} onClose={() => setOpen(false)} title="New MOU Record">
-        <form onSubmit={handleCreate} className="space-y-4">
+      {/* New/Edit MOU Modal */}
+      <Modal open={open} onClose={() => setOpen(false)} title={editingMou ? "Edit MOU Record" : "New MOU Record"}>
+        <form onSubmit={handleSubmit} className="space-y-4">
           <Input label="MOU Title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required />
           <Input label="Partner Organization" value={form.partner_organization} onChange={(e) => setForm({ ...form, partner_organization: e.target.value })} required />
           <div className="grid grid-cols-2 gap-4">
@@ -293,7 +361,9 @@ export default function MousListPage() {
             <Input label="Sign Date" type="date" value={form.sign_date} onChange={(e) => setForm({ ...form, sign_date: e.target.value })} />
             <Input label="Expiry Date" type="date" value={form.expiry_date} onChange={(e) => setForm({ ...form, expiry_date: e.target.value })} />
           </div>
-          <Button type="submit" className="w-full rounded-xl" loading={submitting}>Create MOU</Button>
+          <Button type="submit" className="w-full rounded-xl" loading={submitting}>
+            {editingMou ? "Update MOU" : "Create MOU"}
+          </Button>
         </form>
       </Modal>
 

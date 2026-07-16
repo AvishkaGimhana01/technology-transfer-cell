@@ -1,4 +1,5 @@
 from typing import List, Optional
+from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session, select
 from app.database import get_session
@@ -57,3 +58,40 @@ def update_project_status(
     session.commit()
     session.refresh(project)
     return project
+
+
+@router.patch("/{project_id}", response_model=ProjectRead)
+def update_project(
+    project_id: int,
+    payload: ProjectCreate,
+    session: Session = Depends(get_session),
+    _: User = Depends(get_current_user),
+):
+    project = session.get(IndustryProject, project_id)
+    if not project:
+        raise HTTPException(status_code=404, detail="Project not found")
+    
+    payload_data = payload.dict(exclude_unset=True)
+    for key, value in payload_data.items():
+        setattr(project, key, value)
+    
+    project.updated_at = datetime.utcnow()
+    session.add(project)
+    session.commit()
+    session.refresh(project)
+    return project
+
+
+@router.delete("/{project_id}")
+def delete_project(
+    project_id: int,
+    session: Session = Depends(get_session),
+    _: User = Depends(get_current_user),
+):
+    project = session.get(IndustryProject, project_id)
+    if not project:
+        raise HTTPException(status_code=404, detail="Project not found")
+    
+    session.delete(project)
+    session.commit()
+    return {"message": "Project deleted successfully"}

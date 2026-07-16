@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
-import { listPatents, getPatent, updatePatentStatus, getPatentTimeline, addPatentTimelineEvent, createPatent } from '../api/patents'
+import { listPatents, getPatent, updatePatentStatus, getPatentTimeline, addPatentTimelineEvent, createPatent, updatePatent, deletePatent } from '../api/patents'
+import { useAuth } from '../auth/AuthContext'
 import PageHeader from '../components/ui/PageHeader'
 import DataTable from '../components/ui/DataTable'
 import StatusDot from '../components/ui/StatusDot'
@@ -9,16 +10,8 @@ import Input from '../components/ui/Input'
 import Modal from '../components/ui/Modal'
 import { useToast } from '../components/ui/Toast'
 
-const columns = [
-  { key: 'patent_number', label: 'Case Number', render: (r) => <span className="font-bold text-indigo">{r.patent_number}</span> },
-  { key: 'title', label: 'Patent Title' },
-  { key: 'jurisdiction', label: 'Jurisdiction' },
-  { key: 'attorney', label: 'Attorney' },
-  { key: 'status', label: 'Status', render: (r) => <StatusDot status={r.status} /> },
-  { key: 'next_due_date', label: 'Next Due', render: (r) => r.next_due_date || '—' },
-]
-
 export default function PatentsPage() {
+  const { user } = useAuth()
   const { addToast } = useToast()
   const [patents, setPatents] = useState([])
   const [selectedPatent, setSelectedPatent] = useState(null)
@@ -32,6 +25,7 @@ export default function PatentsPage() {
   // Creation forms
   const [openCreateModal, setOpenCreateModal] = useState(false)
   const [createSubmitting, setCreateSubmitting] = useState(false)
+  const [editingPatent, setEditingPatent] = useState(null)
   const [newPatent, setNewPatent] = useState({
     title: '',
     patent_number: '',
@@ -42,6 +36,45 @@ export default function PatentsPage() {
     claims_text: '',
     legal_notes: '',
   })
+
+  const isAdmin = user && ['super_admin', 'ttc_staff'].includes(user.role)
+
+  const columns = [
+    { key: 'patent_number', label: 'Case Number', render: (r) => <span className="font-bold text-indigo">{r.patent_number}</span> },
+    { key: 'title', label: 'Patent Title' },
+    { key: 'jurisdiction', label: 'Jurisdiction' },
+    { key: 'attorney', label: 'Attorney' },
+    { key: 'status', label: 'Status', render: (r) => <StatusDot status={r.status} /> },
+    { key: 'next_due_date', label: 'Next Due', render: (r) => r.next_due_date || '—' },
+    {
+      key: 'actions',
+      label: 'Actions',
+      render: (r) => (
+        <div className="flex items-center gap-1.5" onClick={(e) => e.stopPropagation()}>
+          <button
+            onClick={() => handleEditClick(r)}
+            className="p-1 hover:bg-indigo/10 text-indigo rounded-lg transition-colors cursor-pointer active:scale-90"
+            title="Edit Patent"
+          >
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+          </button>
+          {isAdmin && (
+            <button
+              onClick={() => handleDeleteClick(r.id)}
+              className="p-1 hover:bg-rust/10 text-rust rounded-lg transition-colors cursor-pointer active:scale-90"
+              title="Delete Patent"
+            >
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+              </svg>
+            </button>
+          )}
+        </div>
+      ),
+    },
+  ]
 
   // Timeline form
   const [showTimelineForm, setShowTimelineForm] = useState(false)
@@ -112,20 +145,56 @@ export default function PatentsPage() {
     }
   }
 
-  async function handlePatentCreate(e) {
+  const handleEditClick = (patent) => {
+    setEditingPatent(patent)
+    setNewPatent({
+      title: patent.title,
+      patent_number: patent.patent_number,
+      jurisdiction: patent.jurisdiction,
+      assignee: patent.assignee || 'Technology Transfer Cell',
+      attorney: patent.attorney,
+      budget: patent.budget || '',
+      claims_text: patent.claims_text || '',
+      legal_notes: patent.legal_notes || '',
+    })
+    setOpenCreateModal(true)
+  }
+
+  const handleDeleteClick = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this patent case?')) return
+    try {
+      await deletePatent(id)
+      addToast('Patent deleted successfully!', 'success')
+      if (selectedPatent && selectedPatent.id === id) {
+        setSelectedPatent(null)
+      }
+      loadPatents()
+    } catch (err) {
+      addToast(err.response?.data?.detail || 'Failed to delete patent.', 'error')
+    }
+  }
+
+  async function handlePatentSubmit(e) {
     e.preventDefault()
     setCreateSubmitting(true)
     try {
       const payload = {
         ...newPatent,
         budget: newPatent.budget ? parseFloat(newPatent.budget) : 0,
-        filing_date: new Date().toISOString().split('T')[0],
-        next_due_date: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] // 90 days out
+        filing_date: editingPatent ? editingPatent.filing_date : new Date().toISOString().split('T')[0],
+        next_due_date: editingPatent ? editingPatent.next_due_date : new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString().split('T')[0] // 90 days out
       }
-      const created = await createPatent(payload)
-      setPatents([...patents, created])
-      setSelectedPatent(created)
+      if (editingPatent) {
+        const updated = await updatePatent(editingPatent.id, payload)
+        addToast('Patent updated successfully!', 'success')
+        setSelectedPatent(updated)
+      } else {
+        const created = await createPatent(payload)
+        addToast('New patent portfolio case initialized!', 'success')
+        setSelectedPatent(created)
+      }
       setOpenCreateModal(false)
+      setEditingPatent(null)
       setNewPatent({
         title: '',
         patent_number: '',
@@ -136,9 +205,9 @@ export default function PatentsPage() {
         claims_text: '',
         legal_notes: '',
       })
-      addToast('New patent portfolio case initialized!', 'success')
+      loadPatents()
     } catch (err) {
-      addToast('Failed to initialize patent case.', 'error')
+      addToast(err.response?.data?.detail || 'Failed to save patent case.', 'error')
     } finally {
       setCreateSubmitting(false)
     }
@@ -166,7 +235,17 @@ export default function PatentsPage() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
           </svg>
         }
-        action={<Button onClick={() => setOpenCreateModal(true)}>+ Initialize Case</Button>}
+        action={
+          <Button
+            onClick={() => {
+              setEditingPatent(null)
+              setNewPatent({ title: '', patent_number: '', jurisdiction: 'US / PCT', assignee: 'Technology Transfer Cell', attorney: '', budget: '', claims_text: '', legal_notes: '' })
+              setOpenCreateModal(true)
+            }}
+          >
+            + Initialize Case
+          </Button>
+        }
       />
 
       {/* Selected Patent Details Section (Figma redrawn premium drawer) */}
@@ -417,9 +496,9 @@ export default function PatentsPage() {
         </form>
       </Modal>
 
-      {/* Create Patent Modal */}
-      <Modal open={openCreateModal} onClose={() => setOpenCreateModal(null)} title="Initialize Patent Case">
-        <form onSubmit={handlePatentCreate} className="space-y-4">
+      {/* Create/Edit Patent Modal */}
+      <Modal open={openCreateModal} onClose={() => setOpenCreateModal(null)} title={editingPatent ? "Edit Patent Case" : "Initialize Patent Case"}>
+        <form onSubmit={handlePatentSubmit} className="space-y-4">
           <Input
             label="Patent Title"
             placeholder="e.g. Adaptive edge AI scheduler"
@@ -483,7 +562,9 @@ export default function PatentsPage() {
               onChange={(e) => setNewPatent({ ...newPatent, legal_notes: e.target.value })}
             />
           </label>
-          <Button type="submit" className="w-full" loading={createSubmitting}>Initialize Case Portfolio</Button>
+          <Button type="submit" className="w-full" loading={createSubmitting}>
+            {editingPatent ? "Update Case Portfolio" : "Initialize Case Portfolio"}
+          </Button>
         </form>
       </Modal>
 
