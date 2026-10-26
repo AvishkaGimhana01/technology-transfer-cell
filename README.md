@@ -23,3 +23,19 @@ docker compose up
 ```
 
 This starts the `db` service using the `postgres:alpine` image. It maps port `5432` on the host to port `5432` in the container (`5432:5432`).
+
+## Backend setup
+
+Copy the example environment file:
+
+```bash
+cp backend/.env.example backend/.env
+```
+
+Install the backend dependencies: TODO — `pyproject.toml` declares dependencies but does not specify an installation command.
+
+From the `backend/` directory, start the server with:
+
+```bash
+uvicorn app.main:app --reload
+```
