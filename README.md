@@ -54,3 +54,18 @@ To run the `build` script:
 ```bash
 npm run build
 ```
+
+## Environment variables
+
+The backend environment file uses these variables:
+
+| Variable | Description |
+|---|---|
+| `DATABASE_URL` | Connection URL for the database. Use placeholders for credentials and connection details. |
+| `SECRET_KEY` | Secret key used by the backend for token security. Provide your own value; do not use a real secret in documentation. |
+| `ACCESS_TOKEN_EXPIRE_MINUTES` | Token expiration duration, in minutes. |
+| `ALGORITHM` | Algorithm used for token signing. |
+
+## License
+
+See [LICENSE](LICENSE).
