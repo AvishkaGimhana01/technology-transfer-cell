@@ -39,3 +39,18 @@ From the `backend/` directory, start the server with:
 ```bash
 uvicorn app.main:app --reload
 ```
+
+## Frontend setup
+
+From the `fronend/` directory, install dependencies and start the development server:
+
+```bash
+npm install
+npm run dev
+```
+
+To run the `build` script:
+
+```bash
+npm run build
+```
