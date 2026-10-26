@@ -13,3 +13,13 @@ Technology Transfer Cell is an intellectual property management system, with a F
 | `docs/` | Project context, function, and planning documentation. |
 | `bruno/` | Bruno API request collection and environment. |
 | `docker-compose.yml` | Docker Compose configuration for PostgreSQL. |
+
+## Run with Docker
+
+Start the services defined in `docker-compose.yml` with:
+
+```bash
+docker compose up
+```
+
+This starts the `db` service using the `postgres:alpine` image. It maps port `5432` on the host to port `5432` in the container (`5432:5432`).
